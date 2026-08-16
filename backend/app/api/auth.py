@@ -123,3 +123,18 @@ async def route_logout(
     pop_session_token(request.cookies.get("ecogain_session"))
     resp = ok({"ok": True})
     return resp
+
+
+# /api/auth/me 与 /auth 前缀不同（前端登录态探测约定路径），独立 router
+me_router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+
+@me_router.get("/me")
+async def route_me(user: User = Depends(get_current_user)) -> dict:
+    """当前用户信息：登录态判定与 admin 入口显隐（前端契约缺口接口，API 文档 §3.4）。"""
+    return ok({
+        "user_id": user.id,
+        "username": user.username,
+        "display_name": user.display_name,
+        "role": user.role,
+    })

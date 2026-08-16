@@ -5,13 +5,20 @@
 | 项 | 内容 |
 | --- | --- |
 | 文档名称 | API 接口设计文档（前后端对接契约） |
-| 文档版本 | v1.0 |
+| 文档版本 | v1.1 |
 | 创建日期 | 2026-08-16 |
 | 上游文档 | PRD v1.1（附录 C/D 为需求级基线）、SPEC v1.0（实现级补充） |
 | 定位 | **前后端接口唯一契约源**：字段类型、必填、示例、错误场景以本文档为准；PRD 附录 C/D 与本文档冲突时以本文档为准 |
 | 数据 companion | `docs/DATA-数据设计文档.md`（表结构与存储对象） |
 
 本文档整合并细化三处既有接口约定：PRD 附录 C（REST 清单）、PRD 附录 D（WS 协议）、SPEC 的实现扩展（下载接口、日志接口、attachment_status 消息）。
+
+### 修订记录
+
+| 版本 | 日期 | 修订说明 |
+| --- | --- | --- |
+| v1.0 | 2026-08-16 | 初版（整合 PRD 附录 C/D 与 SPEC 实现扩展） |
+| v1.1 | 2026-08-16 | 增补 §3.4 `GET /api/auth/me`（登录态探测与角色获取）与 §7.3 `GET /api/admin/configs`（管理页配置读取）——收编前端先行约定的两个缺口接口 |
 
 ## 2. 通用约定
 
@@ -90,6 +97,22 @@
 
 - 请求：无 body；
 - 响应 data：`{ "ok": true }`；行为：清 Cookie + 删服务端会话。前端收到后跳 `/login`。
+
+### 3.4 当前用户信息
+
+| 项 | 值 |
+| --- | --- |
+| `GET /api/auth/me` | 需认证 |
+
+- 用途：登录态探测与角色获取（admin 入口显隐）。
+- 响应 data：
+
+```json
+{ "user_id": 1, "username": "analyst", "display_name": "Analyst", "role": "analyst" }
+```
+
+- 错误场景：40101（未登录——前端据此跳 `/login`）。
+- 备注：v1.1 增补。原前端以 `/api/chat/create` 等接口失败间接判定登录态，存在多余请求与不可判定角色的问题；此接口为登录后首个探测请求。
 
 ## 4. 会话接口
 
@@ -366,6 +389,25 @@
 ```
 
 **错误场景**：40301；40401。
+
+### 7.3 配置读取
+
+| 项 | 值 |
+| --- | --- |
+| `GET /api/admin/configs` | 需认证 + admin |
+
+- 用途：管理页配置分组展示（llm / agent / datasource / feature）。只读，修改走 DB 或运维流程后 `POST /api/admin/reload` 生效。
+- 响应 data（数组，按 config_group、config_key 升序）：
+
+```json
+[
+  { "config_group": "llm", "config_key": "llm.model", "config_value": "glm-4.6",
+    "description": "模型名", "updated_at": "2026-08-16T10:30:00.123" }
+]
+```
+
+- 错误场景：40301（非 admin）。
+- 备注：v1.1 增补。敏感项（如 `llm.api_key_ref`）本身只存环境变量引用名，无明文密钥可泄。
 
 ## 8. WebSocket 协议
 
