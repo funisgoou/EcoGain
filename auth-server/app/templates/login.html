@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>登录 - {{ client_name }}</title>
+  <style>
+    body { font-family: -apple-system, "Segoe UI", sans-serif; background: #f5f6f8;
+           display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .card { background: #fff; border-radius: 12px; padding: 40px; width: 360px;
+            box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    h1 { font-size: 20px; margin: 0 0 8px; }
+    p.sub { color: #888; font-size: 13px; margin: 0 0 24px; }
+    label { display: block; font-size: 13px; color: #555; margin: 12px 0 4px; }
+    input { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid #ddd;
+            border-radius: 8px; font-size: 14px; }
+    input:focus { outline: none; border-color: #4a7dff; }
+    button { width: 100%; margin-top: 24px; padding: 12px; background: #4a7dff; color: #fff;
+             border: 0; border-radius: 8px; font-size: 15px; cursor: pointer; }
+    button:hover { background: #3a6ae5; }
+    .error { color: #d33; font-size: 13px; margin-top: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>登录 {{ client_name }}</h1>
+    <p class="sub">统一认证中心 · 授权后返回 EcoGain 工作台</p>
+    <form method="post" action="/authorize">
+      <input type="hidden" name="client_id" value="{{ client_id }}">
+      <input type="hidden" name="redirect_uri" value="{{ redirect_uri }}">
+      <input type="hidden" name="state" value="{{ state }}">
+      <label>账号</label>
+      <input name="username" autocomplete="username" required>
+      <label>密码</label>
+      <input name="password" type="password" autocomplete="current-password" required>
+      <button type="submit">授权登录</button>
+      {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ecogain-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_USER: ecogain
+      MYSQL_PASSWORD: ecogain_pass
+      MYSQL_DATABASE: ecogain
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_pass"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  auth-server:
+    build:
+      context: .
+      dockerfile: docker/auth-server.Dockerfile
+    container_name: ecogain-auth
+    environment: &backend-env
+      MYSQL_HOST: mysql
+      MYSQL_PORT: "3306"
+      MYSQL_USER: ecogain
+      MYSQL_PASSWORD: ecogain_pass
+      MYSQL_DATABASE: ecogain
+      MYSQL_AUTH_DATABASE: ecogain_auth
+      PUBLIC_BASE_URL: http://localhost:8000
+      FRONTEND_BASE_URL: http://localhost:5173
+      AUTH_BASE_URL: http://localhost:8001
+      DATA_DIR: /data
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      AUTH_CLIENT_SECRET: ${AUTH_CLIENT_SECRET:-ecogain-web-secret}
+      AUTH_JWT_SECRET: ${AUTH_JWT_SECRET:-change-me-in-prod}
+      TZ: Asia/Shanghai
+    ports:
+      - "8001:8001"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - app-data:/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    container_name: ecogain-backend
+    environment:
+      <<: *backend-env
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      auth-server:
+        condition: service_started
+    volumes:
+      - app-data:/data
+    # 入口：等 MySQL 就绪 → Alembic 迁移（幂等）→ DuckDB 灌数（幂等）→ 起服务
+    command:
+      - sh
+      - -c
+      - |
+        until python -c "import socket;s=socket.socket();s.settimeout(2);s.connect(('mysql',3306))" 2>/dev/null; do sleep 2; done
+        alembic upgrade head
+        python -m app.seeds.init_analytics --db-path "$${DATA_DIR}/analytics/analytics.duckdb"
+        uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+volumes:
+  mysql-data:
+  app-data:
