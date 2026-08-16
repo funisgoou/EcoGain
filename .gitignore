@@ -1,0 +1,34 @@
+# ---- 本地工作区状态（不入库）----
+.zcode/
+.codegraph/
+.agents/
+
+# ---- Python / uv（backend、auth-server）----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+# 注：uv.lock 为应用部署锁定文件，需入库，不忽略
+
+# ---- Node / Vite（frontend）----
+node_modules/
+dist/
+*.local
+
+# ---- 运行时产物 ----
+data/
+uploads/
+*.duckdb
+*.duckdb.wal
+logs/
+*.log
+
+# ---- IDE / OS --------
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

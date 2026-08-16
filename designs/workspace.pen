@@ -1,0 +1,2059 @@
+{
+  "version": "2.17",
+  "children": [
+    {
+      "type": "frame",
+      "id": "OqaD1",
+      "x": 0,
+      "y": 0,
+      "name": "EcoGain Chat Workspace",
+      "clip": true,
+      "width": 1440,
+      "height": 1200,
+      "fill": "$bg-primary",
+      "children": [
+        {
+          "type": "frame",
+          "id": "qLtRF",
+          "name": "Sidebar",
+          "width": 240,
+          "height": "fill_container",
+          "fill": "$bg-secondary",
+          "layout": "vertical",
+          "gap": "$gap-lg",
+          "padding": "$gap-lg",
+          "children": [
+            {
+              "type": "frame",
+              "id": "A0uZ3",
+              "name": "New Analysis Button",
+              "width": "fill_container",
+              "fill": "$accent-blue",
+              "cornerRadius": "$radius-md",
+              "gap": "$gap-sm",
+              "padding": "$gap-md",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "ju8Qw",
+                  "name": "Plus Icon",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "plus",
+                  "library": "lucide",
+                  "fill": "$text-inverse"
+                },
+                {
+                  "type": "text",
+                  "id": "x9vLT",
+                  "name": "Button Label",
+                  "fill": "$text-inverse",
+                  "content": "新建分析",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "hbDLp",
+              "name": "Session Item 1",
+              "width": "fill_container",
+              "fill": "$bg-active",
+              "cornerRadius": "$radius-md",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "padding": [
+                "$gap-sm",
+                "$gap-md"
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "FO7CF",
+                  "name": "Session Title",
+                  "fill": "$text-primary",
+                  "content": "8月退款率异常归因",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "KNDJl",
+                  "name": "Session Time",
+                  "fill": "$text-tertiary",
+                  "content": "刚刚",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "q4Iio",
+              "name": "Session Item 2",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "cornerRadius": "$radius-md",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "padding": [
+                "$gap-sm",
+                "$gap-md"
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "jiGAS",
+                  "name": "Session Title",
+                  "fill": "$text-primary",
+                  "content": "商品目录优化分析",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                },
+                {
+                  "type": "text",
+                  "id": "JskOE",
+                  "name": "Session Time",
+                  "fill": "$text-tertiary",
+                  "content": "15分钟前",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "z4kzY",
+              "name": "Session Item 3",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "cornerRadius": "$radius-md",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "padding": [
+                "$gap-sm",
+                "$gap-md"
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "nIJ75",
+                  "name": "Session Title",
+                  "fill": "$text-primary",
+                  "content": "Q3营销活动ROI归因",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                },
+                {
+                  "type": "text",
+                  "id": "Ac3TN",
+                  "name": "Session Time",
+                  "fill": "$text-tertiary",
+                  "content": "2小时前",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "bO2EL",
+              "name": "Session Item 4",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "cornerRadius": "$radius-md",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "padding": [
+                "$gap-sm",
+                "$gap-md"
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "KzMI1",
+                  "name": "Session Title",
+                  "fill": "$text-primary",
+                  "content": "供应链成本异常追踪",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                },
+                {
+                  "type": "text",
+                  "id": "T1rwl",
+                  "name": "Session Time",
+                  "fill": "$text-tertiary",
+                  "content": "昨天",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "fvZGO",
+              "name": "Session Item 5",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "cornerRadius": "$radius-md",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "padding": [
+                "$gap-sm",
+                "$gap-md"
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Kd8Am",
+                  "name": "Session Title",
+                  "fill": "$text-primary",
+                  "content": "新用户转化漏斗诊断",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                },
+                {
+                  "type": "text",
+                  "id": "DdMXm",
+                  "name": "Session Time",
+                  "fill": "$text-tertiary",
+                  "content": "昨天",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "OAjbp",
+              "name": "Session Item 6",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "cornerRadius": "$radius-md",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "padding": [
+                "$gap-sm",
+                "$gap-md"
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vf3od",
+                  "name": "Session Title",
+                  "fill": "$text-primary",
+                  "content": "库存周转率分析",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14
+                },
+                {
+                  "type": "text",
+                  "id": "Gu2uv",
+                  "name": "Session Time",
+                  "fill": "$text-tertiary",
+                  "content": "3天前",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "E27YOD",
+          "name": "Chat Area",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "$bg-primary",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "GGfxK",
+              "name": "Chat Header",
+              "width": "fill_container",
+              "fill": "$bg-primary",
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "$border-light",
+                "offset": {
+                  "x": 0,
+                  "y": 1
+                }
+              },
+              "padding": [
+                "$gap-md",
+                "$gap-lg"
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "a3prKd",
+                  "name": "Header Title",
+                  "fill": "$text-primary",
+                  "content": "8月退款率异常归因",
+                  "fontFamily": "$font-body",
+                  "fontSize": 16,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "AsfdZ",
+                  "name": "Header Actions",
+                  "gap": "$gap-sm",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "I41jk3",
+                      "name": "More Icon",
+                      "width": 20,
+                      "height": 20,
+                      "icon": "ellipsis",
+                      "library": "lucide",
+                      "fill": "$text-tertiary"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ah5Ui",
+              "name": "Message Flow",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$bg-primary",
+              "layout": "vertical",
+              "gap": "$gap-xl",
+              "padding": "$gap-lg",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "c6lzGd",
+                  "name": "User Message",
+                  "width": "fill_container",
+                  "gap": "$gap-sm",
+                  "justifyContent": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "rUixA",
+                      "name": "User Bubble",
+                      "fill": "$accent-blue",
+                      "cornerRadius": [
+                        "$radius-md",
+                        "$radius-md",
+                        0,
+                        "$radius-md"
+                      ],
+                      "layout": "vertical",
+                      "gap": "$gap-sm",
+                      "padding": "$gap-md",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Sqkyc",
+                          "name": "User Text",
+                          "fill": "$text-inverse",
+                          "textGrowth": "fixed-width",
+                          "width": 540,
+                          "content": "为什么上周护肤品类的退款率明显上升？",
+                          "lineHeight": 1.6,
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "G1ITDZ",
+                  "name": "AI Analysis Card",
+                  "width": "fill_container",
+                  "fill": "$bg-secondary",
+                  "cornerRadius": "$radius-lg",
+                  "stroke": "$accent-blue",
+                  "strokeWidth": {
+                    "left": 3
+                  },
+                  "layout": "vertical",
+                  "gap": "$gap-md",
+                  "padding": "$gap-lg",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "s1KBV",
+                      "name": "AI Analysis Title",
+                      "fill": "$text-primary",
+                      "content": "初步分析",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "iiPTn",
+                      "name": "AI Analysis Body",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "根据历史数据对比，上周护肤品类退款率从 4.2% 上升至 8.7%。主要异常集中在两个维度：\n\n1. 退款原因分布变化：「未收到货」占比从 12% 上升至 35%\n2. 时间集中度：异常集中在 8月5日-8月8日，期间退款率峰值达到 14.3%\n\n需要进一步定位具体SKU和物流链路问题。",
+                      "lineHeight": 1.7,
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "bvm49",
+                  "name": "Code Block",
+                  "width": "fill_container",
+                  "fill": "$bg-code",
+                  "cornerRadius": "$radius-md",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "JhaE1",
+                      "name": "Code Header",
+                      "width": "fill_container",
+                      "fill": "$bg-code-header",
+                      "gap": "$gap-sm",
+                      "padding": [
+                        "$gap-sm",
+                        "$gap-md"
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "i0bQ6J",
+                          "name": "Code Lang Tag",
+                          "gap": "$gap-sm",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "HQyCB",
+                              "name": "DB Icon",
+                              "width": 14,
+                              "height": 14,
+                              "icon": "database",
+                              "library": "lucide",
+                              "fill": "$text-tertiary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "vrWbY",
+                              "name": "Code Lang Text",
+                              "fill": "$text-tertiary",
+                              "content": "sql_query",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "tcntM",
+                          "name": "Execution Status",
+                          "gap": "$gap-xs",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "imDUs",
+                              "name": "Check Icon",
+                              "width": 14,
+                              "height": 14,
+                              "icon": "check",
+                              "library": "lucide",
+                              "fill": "$text-code-green"
+                            },
+                            {
+                              "type": "text",
+                              "id": "QtBZp",
+                              "name": "Status Text",
+                              "fill": "$text-code-green",
+                              "content": "执行成功 · 耗时 1.2s",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TDcs2",
+                      "name": "SQL Wrapper",
+                      "width": "fill_container",
+                      "fill": "#00000000",
+                      "layout": "vertical",
+                      "padding": "$gap-md",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "KOp4j",
+                          "name": "SQL Code",
+                          "fill": "$text-code",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "SELECT\n  category,\n  refund_rate,\n  COUNT(*) as order_count,\n  DATE(created_at) as date\nFROM orders\nWHERE category = '护肤品'\n  AND created_at >= '2026-08-01'\nGROUP BY DATE(created_at)\nORDER BY date DESC;",
+                          "lineHeight": 1.6,
+                          "fontFamily": "$font-mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "LAqsN",
+                      "name": "Result Summary",
+                      "width": "fill_container",
+                      "fill": "$bg-code-header",
+                      "gap": "$gap-sm",
+                      "padding": [
+                        "$gap-sm",
+                        "$gap-md"
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "a454K",
+                          "name": "Result Text",
+                          "fill": "$text-tertiary",
+                          "content": "返回 7 行 · 退款率均值 6.4% · 峰值日期 2026-08-05",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ulvwQ",
+                  "name": "Loading Bar",
+                  "width": "fill_container",
+                  "fill": "$accent-blue-light",
+                  "cornerRadius": "$radius-md",
+                  "gap": "$gap-sm",
+                  "padding": "$gap-md",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "vnmia",
+                      "name": "Loading Left",
+                      "gap": "$gap-sm",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "kp4hD",
+                          "name": "Loading Icon",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "loader",
+                          "library": "lucide",
+                          "fill": "$accent-blue"
+                        },
+                        {
+                          "type": "text",
+                          "id": "yf4JF",
+                          "name": "Loading Text",
+                          "fill": "$accent-blue",
+                          "content": "正在生成 SQL 查询…",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "r4Q88",
+                      "name": "Cancel Button",
+                      "fill": "#00000000",
+                      "cornerRadius": "$radius-sm",
+                      "stroke": "$border-medium",
+                      "strokeWidth": 1,
+                      "gap": "$gap-xs",
+                      "padding": [
+                        "$gap-xs",
+                        "$gap-sm"
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "sUIe9",
+                          "name": "X Icon",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "x",
+                          "library": "lucide",
+                          "fill": "$text-secondary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "fNdqT",
+                          "name": "Cancel Text",
+                          "fill": "$text-secondary",
+                          "content": "取消",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "I6zx4B",
+              "name": "Input Area",
+              "width": "fill_container",
+              "fill": "$bg-primary",
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "$border-light",
+                "offset": {
+                  "x": 0,
+                  "y": -1
+                }
+              },
+              "layout": "vertical",
+              "gap": "$gap-sm",
+              "padding": "$gap-lg",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "cww6X",
+                  "name": "Attachment Tag",
+                  "fill": "$bg-tertiary",
+                  "cornerRadius": "$radius-sm",
+                  "gap": "$gap-xs",
+                  "padding": [
+                    "$gap-xs",
+                    "$gap-sm"
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "E4Kk8x",
+                      "name": "Paperclip Icon",
+                      "width": 12,
+                      "height": 12,
+                      "icon": "paperclip",
+                      "library": "lucide",
+                      "fill": "$text-tertiary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "lvn2o",
+                      "name": "Attach Text",
+                      "fill": "$text-secondary",
+                      "content": "orders_2026Q3.csv",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Y4oxF",
+                  "name": "Input Row",
+                  "width": "fill_container",
+                  "fill": "$bg-secondary",
+                  "cornerRadius": "$radius-lg",
+                  "stroke": "$border-medium",
+                  "strokeWidth": 1,
+                  "gap": "$gap-sm",
+                  "padding": "$gap-md",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Q8PHZT",
+                      "name": "Input Placeholder",
+                      "fill": "$text-tertiary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "输入问题或指令…",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "RimuF",
+                      "name": "Input Actions",
+                      "gap": "$gap-sm",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "DeptE",
+                          "name": "Upload Icon",
+                          "width": 18,
+                          "height": 18,
+                          "icon": "upload",
+                          "library": "lucide",
+                          "fill": "$text-tertiary"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "cKexC",
+                          "name": "Send Button",
+                          "width": 32,
+                          "height": 32,
+                          "fill": "$accent-blue",
+                          "cornerRadius": "$radius-md",
+                          "padding": "$gap-sm",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "zo1Ln",
+                              "name": "Send Icon",
+                              "width": 14,
+                              "height": 14,
+                              "icon": "send",
+                              "library": "lucide",
+                              "fill": "$text-inverse"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "DsbBu",
+          "name": "Right Panel",
+          "clip": true,
+          "width": 320,
+          "height": "fill_container",
+          "fill": "$bg-secondary",
+          "layout": "vertical",
+          "gap": "$gap-md",
+          "padding": "$gap-md",
+          "children": [
+            {
+              "type": "frame",
+              "id": "d7HnNo",
+              "name": "Actions Row",
+              "width": "fill_container",
+              "gap": "$gap-sm",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "S2cCt1",
+                  "name": "Copy Button",
+                  "width": "fill_container",
+                  "fill": "#00000000",
+                  "cornerRadius": "$radius-sm",
+                  "stroke": "$border-medium",
+                  "strokeWidth": 1,
+                  "gap": "$gap-xs",
+                  "padding": "$gap-sm",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "caZ4z",
+                      "name": "Copy Icon",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "copy",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "A6sXZm",
+                      "name": "Copy Text",
+                      "fill": "$text-secondary",
+                      "content": "复制",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "saVWu",
+                  "name": "Export Button",
+                  "width": "fill_container",
+                  "fill": "#00000000",
+                  "cornerRadius": "$radius-sm",
+                  "stroke": "$border-medium",
+                  "strokeWidth": 1,
+                  "gap": "$gap-xs",
+                  "padding": "$gap-sm",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "Y9Nfa",
+                      "name": "Export Icon",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "file-text",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "x3DapL",
+                      "name": "Export Text",
+                      "fill": "$text-secondary",
+                      "content": "导出 Markdown",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "qCyX5",
+              "name": "Section: Problem Definition",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Fj07q",
+                  "name": "Section Title",
+                  "fill": "$text-primary",
+                  "content": "问题定义",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "f1gcT",
+                  "name": "Section Content",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "护肤品类上周退款率从 4.2% 上升至 8.7%，偏离正常波动范围（±1.2%）。异常集中在 8月5日-8月8日，峰值达 14.3%。",
+                  "lineHeight": 1.6,
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WoKZP",
+              "name": "Section: Key Metrics",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "x24itP",
+                  "name": "Section Title",
+                  "fill": "$text-primary",
+                  "content": "关键指标",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "xWLUb",
+                  "name": "Table Header",
+                  "width": "fill_container",
+                  "fill": "$bg-tertiary",
+                  "cornerRadius": "$radius-sm",
+                  "gap": "$gap-xs",
+                  "padding": [
+                    "$gap-xs",
+                    "$gap-sm"
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "l0oai",
+                      "name": "Col 指标名",
+                      "fill": "$text-tertiary",
+                      "content": "指标名",
+                      "fontFamily": "$font-body",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "o5Zso",
+                      "name": "Col 数值",
+                      "fill": "$text-tertiary",
+                      "content": "数值",
+                      "fontFamily": "$font-body",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xMZsl",
+                      "name": "Col 单位",
+                      "fill": "$text-tertiary",
+                      "content": "单位",
+                      "fontFamily": "$font-body",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "GpDuw",
+                      "name": "Col 口径",
+                      "fill": "$text-tertiary",
+                      "content": "口径",
+                      "fontFamily": "$font-body",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Cd0r9",
+                  "name": "Table Row 1",
+                  "width": "fill_container",
+                  "fill": "$bg-secondary",
+                  "gap": "$gap-xs",
+                  "padding": [
+                    "$gap-xs",
+                    "$gap-sm"
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "hpAOh",
+                      "name": "Cell 1-1",
+                      "fill": "$text-primary",
+                      "content": "退款率（周均值）",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "vYBzE",
+                      "name": "Cell 1-2",
+                      "fill": "$text-secondary",
+                      "content": "8.7%",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "r5ed1",
+                      "name": "Cell 1-3",
+                      "fill": "$text-secondary",
+                      "content": "%",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Y4kjh",
+                      "name": "Cell 1-4",
+                      "fill": "$text-secondary",
+                      "content": "近7天",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ClC6y",
+                  "name": "Table Row 2",
+                  "width": "fill_container",
+                  "fill": "$bg-primary",
+                  "gap": "$gap-xs",
+                  "padding": [
+                    "$gap-xs",
+                    "$gap-sm"
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "SfX9o",
+                      "name": "Cell 2-1",
+                      "fill": "$text-primary",
+                      "content": "退款率（峰值）",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "y2iVx2",
+                      "name": "Cell 2-2",
+                      "fill": "$text-secondary",
+                      "content": "14.3%",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "pQ8j1",
+                      "name": "Cell 2-3",
+                      "fill": "$text-secondary",
+                      "content": "%",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Pezjl",
+                      "name": "Cell 2-4",
+                      "fill": "$text-secondary",
+                      "content": "8月5日",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "e2KTG",
+                  "name": "Table Row 3",
+                  "width": "fill_container",
+                  "fill": "$bg-secondary",
+                  "gap": "$gap-xs",
+                  "padding": [
+                    "$gap-xs",
+                    "$gap-sm"
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "q3GhGi",
+                      "name": "Cell 3-1",
+                      "fill": "$text-primary",
+                      "content": "环比变化",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "PDs1q",
+                      "name": "Cell 3-2",
+                      "fill": "$text-secondary",
+                      "content": "+4.5pp",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "n2Y9c",
+                      "name": "Cell 3-3",
+                      "fill": "$text-secondary",
+                      "content": "pp",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "HOTTu",
+                      "name": "Cell 3-4",
+                      "fill": "$text-secondary",
+                      "content": "对比前一周",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fgZ03",
+                  "name": "Table Row 4",
+                  "width": "fill_container",
+                  "fill": "$bg-primary",
+                  "gap": "$gap-xs",
+                  "padding": [
+                    "$gap-xs",
+                    "$gap-sm"
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ZqT8C",
+                      "name": "Cell 4-1",
+                      "fill": "$text-primary",
+                      "content": "异常SKU数量",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "cP4z3",
+                      "name": "Cell 4-2",
+                      "fill": "$text-secondary",
+                      "content": "23",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xTRux",
+                      "name": "Cell 4-3",
+                      "fill": "$text-secondary",
+                      "content": "个",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "N1jvIz",
+                      "name": "Cell 4-4",
+                      "fill": "$text-secondary",
+                      "content": "退货>20单",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "G6Lk3",
+              "name": "Section: Evidence",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "yqRx6",
+                  "name": "Section Title",
+                  "fill": "$text-primary",
+                  "content": "证据列表",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "tqseI",
+                  "name": "Evidence 1",
+                  "width": "fill_container",
+                  "fill": "$bg-primary",
+                  "cornerRadius": "$radius-sm",
+                  "stroke": "$border-light",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": "$gap-xs",
+                  "padding": "$gap-xs",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "dLye5",
+                      "name": "Evidence Top",
+                      "width": "fill_container",
+                      "gap": "$gap-sm",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "C5v9tf",
+                          "name": "Source Tag",
+                          "fill": "$bg-tertiary",
+                          "cornerRadius": "$radius-sm",
+                          "padding": [
+                            2,
+                            "$gap-xs"
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "QzgCb",
+                              "name": "Source Text",
+                              "fill": "$text-tertiary",
+                              "content": "订单数据",
+                              "fontFamily": "$font-body",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "lFl3X",
+                          "name": "Confidence Tag",
+                          "fill": "$accent-green-light",
+                          "cornerRadius": "$radius-sm",
+                          "padding": [
+                            2,
+                            "$gap-xs"
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "o9nUj",
+                              "name": "Confidence Text",
+                              "fill": "$confidence-high",
+                              "content": "高",
+                              "fontFamily": "$font-body",
+                              "fontSize": 11,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "XktOu",
+                      "name": "Evidence Desc",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "护肤品类退款订单同比增长 187%",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "I2CGa0",
+                  "name": "Evidence 2",
+                  "width": "fill_container",
+                  "fill": "$bg-primary",
+                  "cornerRadius": "$radius-sm",
+                  "stroke": "$border-light",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": "$gap-xs",
+                  "padding": "$gap-xs",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Awy8Y",
+                      "name": "Evidence Top",
+                      "width": "fill_container",
+                      "gap": "$gap-sm",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "uFBsV",
+                          "name": "Source Tag",
+                          "fill": "$bg-tertiary",
+                          "cornerRadius": "$radius-sm",
+                          "padding": [
+                            2,
+                            "$gap-xs"
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ogIcz",
+                              "name": "Source Text",
+                              "fill": "$text-tertiary",
+                              "content": "物流数据",
+                              "fontFamily": "$font-body",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iXODM",
+                          "name": "Confidence Tag",
+                          "fill": "$accent-green-light",
+                          "cornerRadius": "$radius-sm",
+                          "padding": [
+                            2,
+                            "$gap-xs"
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "a81w8",
+                              "name": "Confidence Text",
+                              "fill": "$confidence-high",
+                              "content": "高",
+                              "fontFamily": "$font-body",
+                              "fontSize": 11,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "j5MPF",
+                      "name": "Evidence Desc",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "8月5日-8月8日发货延迟率升至 28%",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BgyuP",
+                  "name": "Evidence 3",
+                  "width": "fill_container",
+                  "fill": "$bg-primary",
+                  "cornerRadius": "$radius-sm",
+                  "stroke": "$border-light",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": "$gap-xs",
+                  "padding": "$gap-xs",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ZXYjq",
+                      "name": "Evidence Top",
+                      "width": "fill_container",
+                      "gap": "$gap-sm",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "BR9HT",
+                          "name": "Source Tag",
+                          "fill": "$bg-tertiary",
+                          "cornerRadius": "$radius-sm",
+                          "padding": [
+                            2,
+                            "$gap-xs"
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "M0Eoj",
+                              "name": "Source Text",
+                              "fill": "$text-tertiary",
+                              "content": "客服记录",
+                              "fontFamily": "$font-body",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "xBHRQ",
+                          "name": "Confidence Tag",
+                          "fill": "$accent-amber-light",
+                          "cornerRadius": "$radius-sm",
+                          "padding": [
+                            2,
+                            "$gap-xs"
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "DEkZH",
+                              "name": "Confidence Text",
+                              "fill": "$confidence-medium",
+                              "content": "中",
+                              "fontFamily": "$font-body",
+                              "fontSize": 11,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "ZBG4I",
+                      "name": "Evidence Desc",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "「未收到货」投诉占比升至 35%",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VAm0k",
+                  "name": "Evidence 4",
+                  "width": "fill_container",
+                  "fill": "$bg-primary",
+                  "cornerRadius": "$radius-sm",
+                  "stroke": "$border-light",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": "$gap-xs",
+                  "padding": "$gap-xs",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "X3IK8",
+                      "name": "Evidence Top",
+                      "width": "fill_container",
+                      "gap": "$gap-sm",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "phrOh",
+                          "name": "Source Tag",
+                          "fill": "$bg-tertiary",
+                          "cornerRadius": "$radius-sm",
+                          "padding": [
+                            2,
+                            "$gap-xs"
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Mt5gD",
+                              "name": "Source Text",
+                              "fill": "$text-tertiary",
+                              "content": "供应商反馈",
+                              "fontFamily": "$font-body",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "nTIr0",
+                          "name": "Confidence Tag",
+                          "fill": "$accent-red-light",
+                          "cornerRadius": "$radius-sm",
+                          "padding": [
+                            2,
+                            "$gap-xs"
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "W0wzhB",
+                              "name": "Confidence Text",
+                              "fill": "$confidence-low",
+                              "content": "低",
+                              "fontFamily": "$font-body",
+                              "fontSize": 11,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "ZI0dA",
+                      "name": "Evidence Desc",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "W3仓库暴雨导致发货延迟",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "jodcc",
+              "name": "Section: Attribution Conclusion",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "OD3YG",
+                  "name": "Section Title",
+                  "fill": "$text-primary",
+                  "content": "归因结论",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "UEdnA",
+                  "name": "Conclusion Card",
+                  "width": "fill_container",
+                  "fill": "$accent-green-light",
+                  "cornerRadius": "$radius-md",
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#10B98110",
+                    "offset": {
+                      "x": 0,
+                      "y": 1
+                    },
+                    "blur": 4
+                  },
+                  "layout": "vertical",
+                  "gap": "$gap-sm",
+                  "padding": "$gap-sm",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "r1mAHC",
+                      "name": "Conclusion Text",
+                      "fill": "$accent-green",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "本次退款率异常主要由 W3 仓库发货延迟导致。8月5日-8月8日期间，W3 仓库因暴雨天气导致发货延迟率上升至 28%，直接引发「未收到货」退款激增。该因素可解释约 68% 的异常增量。",
+                      "lineHeight": 1.6,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "D5hbfj",
+              "name": "Section: Missing Data",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "wP0CY",
+                  "name": "Section Title",
+                  "fill": "$text-primary",
+                  "content": "待补充数据",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "Fo9od",
+                  "name": "Missing Item 1",
+                  "width": "fill_container",
+                  "fill": "#00000000",
+                  "gap": "$gap-sm",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "nD8Aq",
+                      "name": "Missing Icon 1",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "info",
+                      "library": "lucide",
+                      "fill": "$text-tertiary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "H4JY2",
+                      "name": "Missing Text 1",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "W3 仓库天气恢复后的发货恢复时间表",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "hUNPo",
+                  "name": "Missing Item 2",
+                  "width": "fill_container",
+                  "fill": "#00000000",
+                  "gap": "$gap-sm",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "EiBE7",
+                      "name": "Missing Icon 2",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "info",
+                      "library": "lucide",
+                      "fill": "$text-tertiary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "GRxAS",
+                      "name": "Missing Text 2",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "受影响的 SKU 级别的退货原因分布",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VPDXT",
+                  "name": "Missing Item 3",
+                  "width": "fill_container",
+                  "fill": "#00000000",
+                  "gap": "$gap-sm",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "k6acF",
+                      "name": "Missing Icon 3",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "info",
+                      "library": "lucide",
+                      "fill": "$text-tertiary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "TRmdB",
+                      "name": "Missing Text 3",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "同类天气事件历史对照数据",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "L1Rqwp",
+              "name": "Section: Next Steps",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "layout": "vertical",
+              "gap": "$gap-xs",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "k9ssFL",
+                  "name": "Section Title",
+                  "fill": "$text-primary",
+                  "content": "下一步建议",
+                  "fontFamily": "$font-body",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "FZp4N",
+                  "name": "Step Item 1",
+                  "width": "fill_container",
+                  "fill": "#00000000",
+                  "gap": "$gap-sm",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "I5V4Vm",
+                      "name": "Step Number 1",
+                      "fill": "$accent-blue",
+                      "content": "1.",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "O0hDs",
+                      "name": "Step Text 1",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "联系 W3 仓库运营方，获取恢复时间表和补偿方案",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "B55J0",
+                  "name": "Step Item 2",
+                  "width": "fill_container",
+                  "fill": "#00000000",
+                  "gap": "$gap-sm",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "v37NPO",
+                      "name": "Step Number 2",
+                      "fill": "$accent-blue",
+                      "content": "2.",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "nH1AS",
+                      "name": "Step Text 2",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "对受影响的订单进行主动沟通，降低客诉升级风险",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "mF1y5",
+                  "name": "Step Item 3",
+                  "width": "fill_container",
+                  "fill": "#00000000",
+                  "gap": "$gap-sm",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "TpLiW",
+                      "name": "Step Number 3",
+                      "fill": "$accent-blue",
+                      "content": "3.",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "wS8zO",
+                      "name": "Step Text 3",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "评估是否需要临时调整该区域的配送策略",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "f40Lm",
+                  "name": "Step Item 4",
+                  "width": "fill_container",
+                  "fill": "#00000000",
+                  "gap": "$gap-sm",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "RUM3F",
+                      "name": "Step Number 4",
+                      "fill": "$accent-blue",
+                      "content": "4.",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "gHiQA",
+                      "name": "Step Text 4",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "建立天气预警机制，在类似事件前触发应急预案",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "bg-primary": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "bg-secondary": {
+      "type": "color",
+      "value": "#F5F7FA"
+    },
+    "bg-tertiary": {
+      "type": "color",
+      "value": "#EEF2F7"
+    },
+    "bg-hover": {
+      "type": "color",
+      "value": "#EBF0F5"
+    },
+    "bg-active": {
+      "type": "color",
+      "value": "#E0EBF5"
+    },
+    "bg-code": {
+      "type": "color",
+      "value": "#1A1D29"
+    },
+    "bg-code-header": {
+      "type": "color",
+      "value": "#232634"
+    },
+    "border-light": {
+      "type": "color",
+      "value": "#E5E8ED"
+    },
+    "border-medium": {
+      "type": "color",
+      "value": "#D0D5DD"
+    },
+    "text-primary": {
+      "type": "color",
+      "value": "#1A1D29"
+    },
+    "text-secondary": {
+      "type": "color",
+      "value": "#5A6270"
+    },
+    "text-tertiary": {
+      "type": "color",
+      "value": "#8B929E"
+    },
+    "text-inverse": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "text-code": {
+      "type": "color",
+      "value": "#E2E8F0"
+    },
+    "text-code-green": {
+      "type": "color",
+      "value": "#4ADE80"
+    },
+    "accent-blue": {
+      "type": "color",
+      "value": "#2563EB"
+    },
+    "accent-blue-light": {
+      "type": "color",
+      "value": "#EFF6FF"
+    },
+    "accent-blue-hover": {
+      "type": "color",
+      "value": "#1D4ED8"
+    },
+    "accent-green": {
+      "type": "color",
+      "value": "#059669"
+    },
+    "accent-green-light": {
+      "type": "color",
+      "value": "#D1FAE5"
+    },
+    "accent-amber": {
+      "type": "color",
+      "value": "#D97706"
+    },
+    "accent-amber-light": {
+      "type": "color",
+      "value": "#FEF3C7"
+    },
+    "accent-red": {
+      "type": "color",
+      "value": "#DC2626"
+    },
+    "accent-red-light": {
+      "type": "color",
+      "value": "#FEE2E2"
+    },
+    "confidence-high": {
+      "type": "color",
+      "value": "#059669"
+    },
+    "confidence-medium": {
+      "type": "color",
+      "value": "#D97706"
+    },
+    "confidence-low": {
+      "type": "color",
+      "value": "#DC2626"
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Inter"
+    },
+    "font-mono": {
+      "type": "string",
+      "value": "JetBrains Mono"
+    },
+    "sidebar-width": {
+      "type": "number",
+      "value": 240
+    },
+    "right-panel-width": {
+      "type": "number",
+      "value": 320
+    },
+    "gap-xs": {
+      "type": "number",
+      "value": 4
+    },
+    "gap-sm": {
+      "type": "number",
+      "value": 8
+    },
+    "gap-md": {
+      "type": "number",
+      "value": 12
+    },
+    "gap-lg": {
+      "type": "number",
+      "value": 16
+    },
+    "gap-xl": {
+      "type": "number",
+      "value": 24
+    },
+    "radius-sm": {
+      "type": "number",
+      "value": 4
+    },
+    "radius-md": {
+      "type": "number",
+      "value": 8
+    },
+    "radius-lg": {
+      "type": "number",
+      "value": 12
+    }
+  },
+  "fileToken": "3498f6c9-9db3-4aa8-b11a-d9fc252f4ab5"
+}

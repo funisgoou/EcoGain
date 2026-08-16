@@ -1,0 +1,209 @@
+{
+  "version": "2.17",
+  "children": [
+    {
+      "type": "frame",
+      "id": "Y5U6K",
+      "x": 0,
+      "y": 0,
+      "name": "Login Page",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg",
+      "layout": "vertical",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "d549xp",
+          "name": "Login Card",
+          "fill": "$surface",
+          "cornerRadius": 16,
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#00000010",
+            "offset": {
+              "x": 0,
+              "y": 8
+            },
+            "blur": 32
+          },
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            64,
+            80
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "zodLi",
+              "name": "Logo Row",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "tTgk4",
+                  "name": "Logo Icon",
+                  "width": 36,
+                  "height": 36,
+                  "icon": "trending-up",
+                  "library": "lucide",
+                  "fill": "$accent"
+                },
+                {
+                  "type": "text",
+                  "id": "e0gIx",
+                  "name": "Brand Name",
+                  "fill": "$text-primary",
+                  "content": "EcoGain",
+                  "fontFamily": "$font-body",
+                  "fontSize": 32,
+                  "fontWeight": "bold"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "IrZSa",
+              "name": "Product Name",
+              "fill": "$text-primary",
+              "content": "经营归因分析系统",
+              "fontFamily": "$font-body",
+              "fontSize": 24,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "lH4hY",
+              "name": "Value Proposition",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": 480,
+              "content": "用自然语言完成查数—归因—追问—出报告的分析闭环",
+              "lineHeight": 1.6,
+              "textAlign": "center",
+              "fontFamily": "$font-body",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "XUvn2",
+              "name": "Auth Button",
+              "width": 320,
+              "fill": "$accent",
+              "cornerRadius": 8,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#2563EB40",
+                "offset": {
+                  "x": 0,
+                  "y": 2
+                },
+                "blur": 8
+              },
+              "gap": 8,
+              "padding": [
+                14,
+                32
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "K8pUs",
+                  "name": "Lock Icon",
+                  "width": 20,
+                  "height": 20,
+                  "icon": "shield-check",
+                  "library": "lucide",
+                  "fill": "#FFFFFF"
+                },
+                {
+                  "type": "text",
+                  "id": "kj7Zm",
+                  "name": "Button Label",
+                  "fill": "#FFFFFF",
+                  "content": "授权登录",
+                  "fontFamily": "$font-body",
+                  "fontSize": 16,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "BJ9EA",
+              "name": "Account Hint",
+              "fill": "$text-muted",
+              "content": "支持账号类型：分析用户 / 系统管理员",
+              "fontFamily": "$font-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "nhzsq",
+          "layoutPosition": "absolute",
+          "x": 0,
+          "y": 840,
+          "name": "Copyright",
+          "fill": "$text-muted",
+          "content": " 2024 EcoGain. All rights reserved.",
+          "fontFamily": "$font-body",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "bg": {
+      "type": "color",
+      "value": "#F7F8FA"
+    },
+    "surface": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "text-primary": {
+      "type": "color",
+      "value": "#1A1A2E"
+    },
+    "text-secondary": {
+      "type": "color",
+      "value": "#6B7280"
+    },
+    "text-muted": {
+      "type": "color",
+      "value": "#9CA3AF"
+    },
+    "accent": {
+      "type": "color",
+      "value": "#2563EB"
+    },
+    "accent-hover": {
+      "type": "color",
+      "value": "#1D4ED8"
+    },
+    "border": {
+      "type": "color",
+      "value": "#E5E7EB"
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Inter"
+    }
+  },
+  "fileToken": "202d8770-c4a9-463e-a121-453935fdd9c2"
+}
