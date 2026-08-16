@@ -2,7 +2,7 @@
 
 ## 项目现状
 
-**纯文档阶段，尚未开始写代码，也不是 git 仓库。** 全部设计已完成并通过评审，实现时以 `docs/` 为唯一依据，不要偏离文档自行发挥。
+**frontend/（Vue3 + Vite + TS，含 Mock 模式，见 frontend/README.md）与 backend / auth-server 均已实现**（后端 2026-08-16 完成核心代码，尚未连库联调）。全部设计以 `docs/` 为唯一依据，不要偏离文档自行发挥。
 
 - 产品：单 Agent 多轮对话经营归因分析系统（查数 → 归因 → 追问 → 六段结构化报告）。
 - 定位：POC 演示级（并发 ≤ 5、单机单实例），不过度设计。
@@ -18,6 +18,7 @@ docs/
 ├── IMPL-实现蓝图-Python方法级.md # 每个文件每个方法的签名+伪代码，VibeCoding 核对底稿，完成后逐方法打勾 ✅
 └── diagrams/                   # 系统架构图（excalidraw 源文件 + png）
 designs/                        # 登录页/工作台设计稿（.pen 源文件 + png）
+frontend/                       # 前端工程（已实现）：Vue3+Vite+TS+Pinia，Mock 模式 VITE_USE_MOCK=true 可无后端演示
 ```
 
 **阅读顺序**：改任何敏感区域前，先读 IMPL 对应章节（它链接了 SPEC 功能点 ID），字段细节查 DATA，接口契约查 API 文档。
@@ -27,7 +28,7 @@ designs/                        # 登录页/工作台设计稿（.pen 源文件 
 - **backend**：Python 3.12 + FastAPI（:8000）+ LangGraph 1.x + SQLAlchemy 异步 + loguru
 - **Python 包管理**：统一用 uv —— 加依赖 `uv add <pkg>`（锁死版本）、装环境 `uv sync`、运行走 `uv run`（如 `uv run uvicorn app.main:app`、`uv run pytest`）；禁止裸 `pip install`
 - **auth-server**：独立 FastAPI 进程（:8001），OAuth2 授权码（/authorize /token /userinfo）
-- **frontend**：Vue3 + Vite（dev :5173）+ Pinia + axios（`withCredentials: true`）
+- **frontend**（已落地）：Vue3 + Vite（dev :5173，代理 /api、/auth → :8000）+ Pinia + axios（`withCredentials: true`）+ marked/dompurify；`VITE_USE_MOCK=true` 走内置 Mock
 - **双层存储**：MySQL 系统库（10 张 OLTP 表）+ MySQL auth 库（3 表）；DuckDB 嵌入式分析库（4 schema 17 张表 + 附件动态表 `attachment_data_{id}`）
 - **部署**：docker-compose 一键拉起（G5 验收目标）
 
