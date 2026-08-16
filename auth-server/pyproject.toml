@@ -1,0 +1,19 @@
+[project]
+name = "ecogain-auth-server"
+version = "0.1.0"
+description = "EcoGain OAuth2 认证中心（独立进程 :8001）"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi==0.141.1",
+    "uvicorn[standard]==0.52.3",
+    "sqlalchemy==2.0.52",
+    "asyncmy==0.2.14",
+    "pydantic-settings==2.15.0",
+    "jinja2==3.1.6",
+    "pyjwt==2.13.0",
+    "bcrypt==5.0.0",
+    "python-multipart==0.0.32",
+]
+
+[tool.uv]
+package = false

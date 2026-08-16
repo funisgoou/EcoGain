@@ -45,3 +45,19 @@ designs/                        # 登录页/工作台设计稿（.pen 源文件 
 
 - 按 IMPL 蓝图的文件树顺序实现（`backend/app` 结构已在 IMPL §2 完整规划），每完成一个方法在 `####` 行首打勾。
 - 文档间冲突的优先级：API 文档 > PRD 附录；表结构以 DATA 文档为准；发现文档自身矛盾时先提出，不要静默改文档。
+
+## Git 提交规范
+
+- **每完成一个功能 commit 一次**：以功能点/功能模块为粒度（对应 SPEC 的功能点 ID 更佳），不要攒一大坨才提交，也不要把多个不相关功能混进同一个 commit。
+- **commit message 用中文**，写清楚本次实现了哪些要点，格式约定：
+  - 首行：`<类型>: <一句话概括>`（类型沿用 conventional commits：feat / fix / refactor / docs / chore / test）
+  - 正文：列出具体实现要点（做了什么、关键决策、关联的功能点 ID），逐条写明，不写空话。
+- 示例：
+
+  ```
+  feat: 实现附件上传与异步解析（ATT-1~3）
+
+  - 上传接口落库 attachments 表，mimetype 双校验，文件名规范化
+  - asyncio.create_task 异步解析，编码探测 + 列名规范化
+  - 解析失败置 failed 并记录错误信息
+  ```
