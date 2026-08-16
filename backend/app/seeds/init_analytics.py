@@ -265,9 +265,15 @@ TABLE_REGISTRY: dict[str, list[str]] = {
 
 
 def insert_batches(conn: duckdb.DuckDBPyConnection, sql: str, rows: list, batch_size: int = BATCH_SIZE) -> int:
-    """executemany 分批插入（每批 5000），返回插入行数。"""
-    for i in range(0, len(rows), batch_size):
-        conn.executemany(sql, rows[i : i + batch_size])
+    """executemany 分批插入（每批 5000），整表包在单事务内提交（批量提交可数倍提速），返回插入行数。"""
+    conn.execute("BEGIN TRANSACTION")
+    try:
+        for i in range(0, len(rows), batch_size):
+            conn.executemany(sql, rows[i : i + batch_size])
+        conn.execute("COMMIT")
+    except Exception:
+        conn.execute("ROLLBACK")
+        raise
     return len(rows)
 
 
@@ -686,11 +692,12 @@ S3_ANDROID_ANOM_CONV = 0.20  # 剧本：android 近 3 周转化率
 def seed_s3_behavior(conn: duckdb.DuckDBPyConnection) -> None:
     """【归因剧本·s3_behavior —— android 支付体验劣化】
 
-    预期归因答案：android 端 checkout 页近 3 周下单转化率（order_events / visit_events
-    where page='checkout'，经 user_id 关联 device）仅 ~20%，显著低于 ios/pc 的 ~75%
+    预期归因答案：android 端 checkout 页近 3 周下单转化率仅 ~20%，显著低于 ios/pc 的 ~75%
     （即 android checkout 流失率 ~80% vs ios/pc ~25%）——支付链路体验劣化剧本。
-    窗口外三端转化率一致（~75%），可由 SQL 按 (device × 时间窗) 分组对比直接发现。
-    device 为用户稳定属性（visit_events 携带），漏斗表行数比 100:20:12.5。
+    事件级口径（order_events/visit_events where page='checkout' 按设备分组）与 user 级口径
+    （checkout 访问者当日内下单，经 user_id + event_time JOIN device）双路径均可复现：
+    每笔下单归因到当日同设备的真实 checkout 访问者，下单时间晚于其 checkout 1~90 分钟。
+    窗口外三端转化率一致（~75%）。漏斗表行数比 100:20:12.5，device 为用户稳定属性。
 
     脏数据：visit_events(source NULL/非法页面/未来时间，近 3 周 checkout 行豁免)、
     cart_events(负数量)、order_events(负金额/单位错位，金额不参与流失率口径)。
@@ -719,26 +726,27 @@ def seed_s3_behavior(conn: duckdb.DuckDBPyConnection) -> None:
     event_id = 0
     total_visits = 200_000
     per_day, extra = divmod(total_visits, DAYS)
-    daily_checkouts: list[dict[str, int]] = []
+    # 每日每设备的 checkout 访问者池 (user_id, event_time)——下单事件从池内归因抽取，
+    # 保证"checkout 访问者当日内下单"的 user 级漏斗与事件级漏斗口径一致，剧本双路径可查。
+    checkout_pools: list[dict[str, list[tuple[int, datetime]]]] = []
     anom_since = TODAY - timedelta(days=20)  # 近 3 周窗口（含当日）
     for d in range(DAYS):
         day = START + timedelta(days=d)
         # checkout 访问：按设备定向生成（带 ±8 抖动）
         checkout_today: dict[str, int] = {}
+        pool_today: dict[str, list[tuple[int, datetime]]] = {}
         for dev, base_n in S3_CHECKOUT_DAILY.items():
             n = base_n + RNG.randint(-8, 8)
             checkout_today[dev] = n
+            pool_today[dev] = []
             for _ in range(n):
                 event_id += 1
-                visit_rows.append([
-                    event_id,
-                    RNG.choice(pools[dev]),
-                    _rand_ts(day),
-                    "checkout",
-                    dev,
-                    RNG.choice(S3_SOURCES) if RNG.random() < 0.8 else None,
-                ])
-        daily_checkouts.append(checkout_today)
+                uid = RNG.choice(pools[dev])
+                ts = _rand_ts(day)
+                pool_today[dev].append((uid, ts))
+                visit_rows.append([event_id, uid, ts, "checkout", dev,
+                                   RNG.choice(S3_SOURCES) if RNG.random() < 0.8 else None])
+        checkout_pools.append(pool_today)
         # 其余页面填充，凑满当日总行数
         filler = per_day + (1 if d < extra else 0) - sum(checkout_today.values())
         for _ in range(filler):
@@ -763,20 +771,27 @@ def seed_s3_behavior(conn: duckdb.DuckDBPyConnection) -> None:
             cart_rows.append([event_id, RNG.randint(1, 2000), _rand_ts(day), RNG.randint(1, 500), RNG.randint(1, 5)])
 
     # 下单 ~2.5 万：checkout × 设备转化率；android 近 3 周骤降（剧本）
+    # 每笔下单从当日同设备的 checkout 访问者池中抽取用户，下单时间晚于其 checkout 1~90 分钟
+    # （跨日则钳回当日 23:59），确保 o.event_time >= c.event_time 的 user 级漏斗 JOIN 成立。
+    day_end = datetime(TODAY.year, TODAY.month, TODAY.day, 23, 59, 59)
     order_seq = 0
     for d in range(DAYS):
         day = START + timedelta(days=d)
         in_anom_window = day >= anom_since
         for dev in ("ios", "android", "pc"):
             conv = S3_ANDROID_ANOM_CONV if (dev == "android" and in_anom_window) else S3_BASE_CONV
-            n = int(daily_checkouts[d][dev] * conv * RNG.uniform(0.92, 1.08))
-            for _ in range(n):
+            pool = checkout_pools[d][dev]
+            n = min(len(pool), int(len(pool) * conv * RNG.uniform(0.92, 1.08)))
+            for uid, ts in RNG.sample(pool, n):
                 event_id += 1
                 order_seq += 1
+                ots = ts + timedelta(minutes=RNG.randint(1, 90))
+                if ots.date() != day:  # 跨日钳回当日（仅运行日深夜可能触发）
+                    ots = min(ots, day_end)
                 order_rows.append([
                     event_id,
-                    RNG.choice(pools[dev]),
-                    _rand_ts(day),
+                    uid,
+                    ots,
                     500_000 + order_seq,  # s3 独立 order_id 空间（与 s2.orders 区分）
                     RNG.randint(1, 500),
                     _money(RNG.uniform(29, 1999)),
@@ -874,7 +889,7 @@ def seed_s4_inventory(conn: duckdb.DuckDBPyConnection) -> None:
                     inbound_id += 1
                     inbound_rows.append([inbound_id, sku, dest, day, q, "transfer_in"])
                     day_in[(sku, dest)] += q
-                if begin < 120:  # 低库存强制采购补货（保证数量不穿底）
+                if begin < 250:  # 低库存强制采购补货（保证数量不穿底，见下方期末非负证明）
                     q = 400 - begin + RNG.randint(0, 50)
                     inbound_id += 1
                     inbound_rows.append([inbound_id, sku, wh, day, q, "purchase"])
@@ -899,6 +914,10 @@ def seed_s4_inventory(conn: duckdb.DuckDBPyConnection) -> None:
                     inbound_rows.append([inbound_id, sku, wh, day, q, "return"])
                     day_in[key] += q
         # 阶段二：按事件结转日快照（期末 = 期初 + 入库 − 出库；剧本 SKU 注入账实缺口）
+        # 期末非负证明（保证账实链自洽，禁止 max(end,0) 钳位——钳位会制造额外"账实不符"噪声）：
+        #   begin ≥ 250 时，单日出库上限 = 销售9 + 报损5 + 常规调拨40 + 高库存调拨120 = 174
+        #   （高库存调拨分支要求 begin > 850，期末 ≥ 676）→ 期末 ≥ 250 − 54 = 196 ≥ 0；
+        #   begin < 250 时走强制补货分支，期末 ≥ 400 − 54 > 0。剧本缺口 ±80 后仍 > 0。
         for sku in range(1, S4_SKU_COUNT + 1):
             for wh in S4_WAREHOUSES:
                 key = (sku, wh)
@@ -906,7 +925,7 @@ def seed_s4_inventory(conn: duckdb.DuckDBPyConnection) -> None:
                 end = begin + day_in[key] - day_out[key]
                 if d in anomaly_days.get(key, ()):
                     end += RNG.choice((-1, 1)) * RNG.randint(30, 80)  # 调拨漏记 → 账实不符
-                end = max(end, 0)
+                assert end >= 0, f"库存穿底（{key} 第{d}天），补货阈值需上调"
                 inv_rows.append([day, sku, wh, begin, end])
                 stock[key] = end
 
@@ -947,6 +966,7 @@ def _print_summary(conn: duckdb.DuckDBPyConnection) -> None:
 
 def main(db_path: str = "./data/analytics/analytics.duckdb") -> None:
     """幂等入口：建父目录 → 连接（文件不存在则创建）→ 4 场景逐个 DROP 重建灌数 → 打印摘要。"""
+    RNG.seed(SEED)  # 重置随机流：同进程内重复调用 main 也生成完全一致的数据
     path = Path(db_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     conn = duckdb.connect(str(path))
