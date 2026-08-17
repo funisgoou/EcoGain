@@ -25,7 +25,15 @@ class EnvSettings(BaseSettings):
     # 服务地址
     public_base_url: str = "http://localhost:8000"
     frontend_base_url: str = "http://localhost:5173"
+    # 认证中心地址（浏览器 302 跳转用）
     auth_base_url: str = "http://localhost:8001"
+    # 认证中心服务间调用地址（backend → auth-server 的 /token /userinfo）；
+    # docker 模式为容器服务名（http://auth-server:8001），未设置时回落 auth_base_url
+    auth_internal_base_url: str | None = None
+
+    @property
+    def auth_s2s_base_url(self) -> str:
+        return self.auth_internal_base_url or self.auth_base_url
 
     # 数据卷根目录（uploads/ exports/ workspace/ analytics/ 均在其下）
     data_dir: str = "./data"

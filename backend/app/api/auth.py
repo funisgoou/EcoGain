@@ -48,11 +48,11 @@ async def route_login() -> RedirectResponse:
 
 
 async def _exchange_code(code: str) -> str:
-    """POST auth-server /token（client_secret 走环境变量）。"""
+    """POST auth-server /token（client_secret 走环境变量；服务间地址，docker 内为容器名）。"""
     env = get_env()
     async with httpx.AsyncClient(timeout=10) as client:
         resp = await client.post(
-            f"{env.auth_base_url}/token",
+            f"{env.auth_s2s_base_url}/token",
             data={
                 "grant_type": "authorization_code",
                 "code": code,
@@ -69,7 +69,7 @@ async def _fetch_userinfo(token: str) -> dict:
     env = get_env()
     async with httpx.AsyncClient(timeout=10) as client:
         resp = await client.get(
-            f"{env.auth_base_url}/userinfo",
+            f"{env.auth_s2s_base_url}/userinfo",
             headers={"Authorization": f"Bearer {token}"},
         )
     if resp.status_code != 200:
