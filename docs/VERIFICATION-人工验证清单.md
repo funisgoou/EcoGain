@@ -4,17 +4,20 @@
 > 对照：PRD 第 11 章验收标准 + G1~G5 目标；预期答案来自 seeds 归因剧本（`backend/app/seeds/init_analytics.py` 各 seed 函数头注释）。
 > 联调顺序对齐 API 文档 §9.1（M1→M2→M3）。每项验证完打勾。
 
-## 0. 环境拉起（首次约 5~10 分钟）
+## 0. 环境拉起
 
-- [ ] 0.1 根目录复制 `.env.example` 为 `.env`，填入 `LLM_API_KEY`（tokenrhythm 的 sk_tr_ 开头 key；不填则所有分析任务报 50001）。base_url/model 已按 tokenrhythm 预置进配置种子（deepseek-v4-flash-0731），建库后自动生效，无需改库
-- [ ] 0.2 `docker compose up -d --build`
-  - MySQL 首启自动执行 `docker/mysql/init/01-init-databases.sql`（建 ecogain + ecogain_auth 两库）
-  - backend 容器入口自动依次执行：等 MySQL 就绪 → `alembic upgrade head`（0001 建 10 表 + 0002 灌 14 项配置）→ DuckDB 灌数（约 2 分钟）→ 起 uvicorn
+**外部数据库模式（当前采用，MySQL 已部署于腾讯云）**：
+- [x] 0.0 云库初始化已完成：ecogain / ecogain_auth 两库 + 认证三表 + Alembic 迁移（10 表 + 14 配置项，版本 0002）
+- [ ] 0.2 起后端两进程（或仍可用 docker）：
+  - 本机裸跑：`cd backend && source ../.env 环境变量 && uv run uvicorn app.main:app --port 8000`；`cd auth-server && PYTHONPATH=. uvicorn app.main:app --port 8001`
+  - Docker：`docker compose up -d --build`（直连 .env 的 MYSQL_*，不占本机 3306；本地库模式改为 `--profile local-db`）
 - [ ] 0.3 前端：`cd frontend && npm install && npm run dev`（联调模式，代理 /api、/auth 到 :8000），浏览器开 `http://localhost:5173`
-- [ ] 0.4 冒烟：`curl http://localhost:8000/healthz` → `{"status":"ok","mysql":true,"duckdb":true,"llm_config":true}`
-- [ ] 0.5 日志格式抽查：`docker logs ecogain-backend 2>&1 | head -20` → 每行一个平铺 JSON（ts/level/msg/…），无裸 print
+- [x] 0.4 冒烟已通过：`/healthz` → `{"status":"ok","mysql":true,"duckdb":true,"llm_config":true}`
+- [ ] 0.5 日志格式抽查（docker 模式看 `docker logs`；裸跑直接看 stdout）→ 每行一个平铺 JSON，无裸 print
 
-**常用排障**：`docker logs -f ecogain-backend` / `docker logs -f ecogain-auth` / `docker compose exec mysql mysql -uecogain -pecogain_pass ecogain`
+**已提前实测通过的链路（2026-08-17）**：OAuth 登录全链路（账密→code→token→userinfo→Cookie→`/api/auth/me`）；WS ping/pong；令牌一次性消费（复用→close 4401）；会话创建。
+
+**常用排障**：`docker logs -f ecogain-backend` / 裸跑看终端；云库 `mysql -h124.222.134.253 -uroot -p ecogain`
 
 ## 1. M1：认证与会话与附件
 
