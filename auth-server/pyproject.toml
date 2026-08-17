@@ -13,6 +13,7 @@ dependencies = [
     "pyjwt==2.13.0",
     "bcrypt==5.0.0",
     "python-multipart==0.0.32",
+    "cryptography>=50.0.0",
 ]
 
 [tool.uv]

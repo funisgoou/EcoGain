@@ -21,9 +21,9 @@ log = get_logger(__name__)
 
 # (config_key, 组, 类型, 默认值, 校验规则描述) —— 与 DATA §6.5 逐行对齐
 DEFAULTS: dict[str, tuple[str, str, Any]] = {
-    "llm.provider": ("llm", "string", "tokenrhythm"),
-    "llm.base_url": ("llm", "string", "https://tokenrhythm.studio/v1"),
-    "llm.model": ("llm", "string", "deepseek-v4-flash-0731"),
+    "llm.provider": ("llm", "string", "deepseek"),
+    "llm.base_url": ("llm", "string", "https://api.deepseek.com"),
+    "llm.model": ("llm", "string", "deepseek-v4-flash"),
     "llm.api_key_ref": ("llm", "string", "LLM_API_KEY"),
     "llm.temperature": ("llm", "float", 0.2),
     "agent.max_tool_rounds": ("agent", "int", 15),
