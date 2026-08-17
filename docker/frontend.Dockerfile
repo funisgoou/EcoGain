@@ -4,9 +4,10 @@
 # ---- 构建阶段：npm ci + vite build（VITE_USE_MOCK 默认 false，走真实后端契约）----
 FROM node:20-alpine AS build
 WORKDIR /app
-# 先拷依赖清单，利用层缓存
+# 先拷依赖清单，利用层缓存；npm 走腾讯镜像源加速
 COPY frontend/package.json frontend/package-lock.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+    npm ci --registry=https://mirrors.cloud.tencent.com/npm/
 COPY frontend/ ./
 RUN npm run build
 
