@@ -25,7 +25,7 @@ async def route_get_task(
     user: User = Depends(get_current_user),
     session: AsyncSession = Depends(get_session),
 ) -> dict:
-    task = await task_service.get_owned(session, user, task_id)
+    task = await task_service.get_owned(session, user.id, task_id)
     return ok(TaskItem(
         task_id=task.id, task_status=task.task_status, current_step=task.current_step,
         started_at=task.started_at, finished_at=task.finished_at,
@@ -39,7 +39,7 @@ async def route_get_result(
     user: User = Depends(get_current_user),
     session: AsyncSession = Depends(get_session),
 ) -> dict:
-    row = await result_service.get_by_task(session, user, task_id)
+    row = await result_service.get_by_task(session, user.id, task_id)
     metrics = [KeyMetric(**m) for m in (json.loads(row.key_metrics_json) if isinstance(row.key_metrics_json, str) else row.key_metrics_json)]
     evidences = [Evidence(**e) for e in (json.loads(row.evidence_list_json) if isinstance(row.evidence_list_json, str) else row.evidence_list_json)]
     return ok({
@@ -62,7 +62,7 @@ async def route_download(
 ) -> FileResponse:
     if not get_config().export_enabled:  # CFG-5 开关
         raise BizError(40301, "导出功能已关闭")
-    path = await result_service.ensure_export_file(session, user, task_id)
+    path = await result_service.ensure_export_file(session, user.id, task_id)
     return FileResponse(
         path, filename=f"result_{task_id}.md", media_type="text/markdown; charset=utf-8"
     )

@@ -44,7 +44,7 @@ async def route_delete(
     user: User = Depends(get_current_user),
     session: AsyncSession = Depends(get_session),
 ) -> dict:
-    att = await attachment_service.get_owned(session, user, body.attachment_id)
+    att = await attachment_service.get_owned(session, user.id, body.attachment_id)
     if att.parse_status == "parsing":
         raise BizError(40001, "解析中的附件暂不可删除")
     await attachment_service.delete_attachment(att)
@@ -57,7 +57,7 @@ async def route_download(
     user: User = Depends(get_current_user),
     session: AsyncSession = Depends(get_session),
 ) -> FileResponse:
-    att = await attachment_service.get_owned(session, user, attachment_id)
+    att = await attachment_service.get_owned(session, user.id, attachment_id)
     path = await attachment_service.get_attachment_file(att)
     if path is None:
         raise BizError(40401, "附件文件不存在")
