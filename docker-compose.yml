@@ -1,5 +1,7 @@
-# 外部数据库模式（默认）：MySQL 用 .env 里的配置（如腾讯云），仅起 auth-server + backend。
+# 外部数据库模式（默认）：MySQL 用 .env 里的配置（如腾讯云），起 frontend + auth-server + backend。
 # 本地数据库模式：docker compose --profile local-db up -d（起容器 MySQL，3306 不冲突时用）。
+# 上线拓扑：frontend(nginx :80) 统一入口 → backend/auth-server 容器内网分流，
+# 8000/8001 仅绑定服务器回环地址供本机排查，公网只暴露 80。
 services:
   mysql:
     profiles: ["local-db"]
@@ -46,7 +48,7 @@ services:
       AUTH_JWT_SECRET: ${AUTH_JWT_SECRET:-change-me-in-prod}
       TZ: Asia/Shanghai
     ports:
-      - "8001:8001"
+      - "127.0.0.1:8001:8001"
     volumes:
       - app-data:/data
 
@@ -60,7 +62,7 @@ services:
       # 服务间调用走容器网络（AUTH_BASE_URL 的 localhost:8001 在容器内指向自身）
       AUTH_INTERNAL_BASE_URL: http://auth-server:8001
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     depends_on:
       auth-server:
         condition: service_started
@@ -76,6 +78,17 @@ services:
         alembic upgrade head
         python -m app.seeds.init_analytics --db-path "$${DATA_DIR}/analytics/analytics.duckdb"
         uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    container_name: ecogain-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_started
 
 volumes:
   mysql-data:
