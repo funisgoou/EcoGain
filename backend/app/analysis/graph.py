@@ -18,31 +18,10 @@ from app.models import AnalysisTask
 from app.schemas import ws as wsmsg
 from app.schemas.common import BizError
 from app.services import message_service, result_service, summary_service
-from app.services.llm_gateway import llm
+from app.services.llm_gateway import lc_to_openai, llm
 from app.ws.manager import MANAGER
 
 log = get_logger(__name__)
-
-
-def _lc_to_openai(messages: list) -> list[dict]:
-    out = []
-    for m in messages:
-        if isinstance(m, ToolMessage):
-            out.append({"role": "tool", "content": str(m.content),
-                        "tool_call_id": m.tool_call_id})
-        elif isinstance(m, AIMessage):
-            entry: dict[str, Any] = {"role": "assistant", "content": m.content or ""}
-            if m.tool_calls:
-                entry["tool_calls"] = [
-                    {"id": c["id"], "type": "function",
-                     "function": {"name": c["name"], "arguments": c["args"]}}
-                    for c in m.tool_calls
-                ]
-            out.append(entry)
-        else:
-            out.append({"role": "system" if m.type == "system" else "user",
-                        "content": m.content})
-    return out
 
 
 def _openai_to_lc(msg_dict: dict) -> AIMessage:
@@ -69,7 +48,7 @@ def _parse_args(raw: Any) -> dict:
 
 async def agent_node(state: AnalysisState) -> dict:
     """单步 LLM 调用（绑定 5 工具）；流式文本增量由外层捕获，这里返回 messages 追加。"""
-    resp = await llm.chat(_lc_to_openai(state["messages"]), tools=ALL_TOOLS, stream=False)
+    resp = await llm.chat(lc_to_openai(state["messages"]), tools=ALL_TOOLS, stream=False)
     choice = resp.choices[0]
     ai_msg = _openai_to_lc(
         {"content": choice.message.content, "tool_calls": None}

@@ -1,10 +1,13 @@
-"""LLM 网关（AGENT-8）：配置驱动的惰性 client 缓存、reload 失效重建、重试 2 次。"""
+"""LLM 网关（AGENT-8）：配置驱动的惰性 client 缓存、reload 失效重建、重试 2 次。
+另含 LangChain 消息 → OpenAI 协议消息的统一转换（graph/output 共用）。"""
 from __future__ import annotations
 
 import asyncio
+import json as _json
 import os
 from typing import Any
 
+from langchain_core.messages import AIMessage, BaseMessage, ToolMessage
 from openai import APIStatusError, APITimeoutError, AsyncOpenAI
 from pydantic import BaseModel
 
@@ -13,6 +16,34 @@ from app.core.logging import get_logger
 from app.schemas.common import BizError
 
 log = get_logger(__name__)
+
+
+def lc_to_openai(messages: list[BaseMessage]) -> list[dict]:
+    """LangChain 消息序列 → OpenAI chat 协议消息。
+
+    关键点：tool_calls.function.arguments 必须是 JSON **字符串**（协议规定），
+    LangChain 侧是 dict——此处序列化；否则 LiteLLM 网关报
+    invalid type: map, expected a string（第二轮工具调用必现）。
+    """
+    out: list[dict] = []
+    for m in messages:
+        if isinstance(m, ToolMessage):
+            out.append({"role": "tool", "content": str(m.content),
+                        "tool_call_id": m.tool_call_id})
+        elif isinstance(m, AIMessage):
+            entry: dict[str, Any] = {"role": "assistant", "content": m.content or ""}
+            if m.tool_calls:
+                entry["tool_calls"] = [
+                    {"id": c["id"], "type": "function",
+                     "function": {"name": c["name"],
+                                  "arguments": _json.dumps(c["args"], ensure_ascii=False)}}
+                    for c in m.tool_calls
+                ]
+            out.append(entry)
+        else:
+            role = "system" if m.type == "system" else "user"
+            out.append({"role": role, "content": m.content})
+    return out
 
 
 class LLMGateway:

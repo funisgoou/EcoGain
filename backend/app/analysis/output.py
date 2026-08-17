@@ -8,7 +8,7 @@ from app.core.logging import get_logger
 from app.schemas.common import BizError
 from app.schemas.result import AnalysisResultModel
 from app.services import task_service
-from app.services.llm_gateway import llm
+from app.services.llm_gateway import lc_to_openai, llm
 
 log = get_logger(__name__)
 
@@ -45,10 +45,7 @@ def validate_result(r: AnalysisResultModel) -> None:
 
 async def generate_structured_output(state: AnalysisState) -> AnalysisResultModel:
     """结构化生成 + 校验 + 一次重试（附错误说明）。"""
-    messages = [
-        {"role": m.type if hasattr(m, "type") else "system", "content": m.content}
-        for m in state["messages"]
-    ]
+    messages = lc_to_openai(state["messages"])
     last_err: Exception | None = None
     for attempt in (1, 2):
         try:
