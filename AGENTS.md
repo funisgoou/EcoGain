@@ -32,6 +32,16 @@ frontend/                       # 前端工程（已实现）：Vue3+Vite+TS+Pin
 - **双层存储**：MySQL 系统库（10 张 OLTP 表）+ MySQL auth 库（3 表）；DuckDB 嵌入式分析库（4 schema 17 张表 + 附件动态表 `attachment_data_{id}`）
 - **部署**：docker-compose 一键拉起（G5 验收目标）
 
+## 本地开发与自测（效率红线）
+
+- **禁止一有小改动就 `docker compose build/up --build`**：构建镜像慢，仅用于最终发布前的 G5 一键验收。日常开发、联调、自测一律本地直跑。
+- **本地直跑方式**（uv workspace 在根目录，根 `.venv` 两服务共用）：
+  - 一次性准备：`uv sync`；把根 `.env` 复制为 `backend/.env`（backend 的 `env_file=".env"` 相对启动目录，且 `DATA_DIR=./data` 需解析到 `backend/data`）。
+  - MySQL 二选一：用 `.env` 里已有数据库；或只起容器库 `docker compose --profile local-db up -d mysql`（不构建应用镜像）。
+  - backend（终端 1）：`cd backend && uv run uvicorn app.main:app --reload --port 8000`；表结构变化时先 `uv run alembic upgrade head`（幂等）。DuckDB 已灌数，删了才需 `uv run python -m app.seeds.init_analytics`。
+  - auth-server（终端 2，**只认环境变量、不读 .env 文件**）：`cd auth-server && set -a && source ../.env && set +a && uv run uvicorn app.main:app --reload --port 8001`。PowerShell 不支持 `&&`/`source`，改用：`Get-Content ..\.env | % { if ($_ -match '^\s*([^#=\s][^=]*)=(.*)$') { [Environment]::SetEnvironmentVariable($matches[1].Trim(), $matches[2].Trim(), 'Process') } }` 后再 `uv run uvicorn app.main:app --reload --port 8001`。
+- 根 `.env` 变更后需重新复制到 `backend/.env`；docker 配置/Dockerfile 的最终重构放到发布前统一做，平时不要动。
+
 ## 硬性约定（实现时不可违背）
 
 - **DuckDB 连接策略**：单 Database 实例（读写模式）+ 全局 asyncio.Lock 串行写。同进程不能混用 read_only 实例，"只读"靠 sql_query 工具的语句级约束落实：语句白名单（SELECT/WITH/SHOW/DESCRIBE）+ 关键词黑名单 + 强制 LIMIT 包裹 + 10s 超时。
