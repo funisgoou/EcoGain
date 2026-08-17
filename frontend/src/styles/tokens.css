@@ -1,0 +1,52 @@
+/* 全局设计 token：贴近 designs/login.png / workspace.png 的浅色灰蓝风 */
+:root {
+  /* 主色 */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-active: #1e40af;
+  --color-primary-light: #eff6ff;
+  --color-primary-border: #bfdbfe;
+
+  /* 灰阶（偏蓝的灰） */
+  --color-bg: #f3f5fa;
+  --color-bg-sidebar: #eef1f8;
+  --color-card: #ffffff;
+  --color-border: #e5e9f2;
+  --color-text: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #9ca3af;
+
+  /* 语义色 */
+  --color-success: #10b981;
+  --color-success-light: #ecfdf5;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fffbeb;
+  --color-danger: #ef4444;
+  --color-danger-light: #fef2f2;
+  --color-info: #6b7280;
+
+  /* 工具块深色 */
+  --color-dark-block: #1f2430;
+  --color-dark-block-header: #262c3a;
+  --color-dark-text: #d6dae4;
+  --color-dark-muted: #8b93a5;
+
+  /* 圆角 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px rgba(31, 41, 55, 0.05);
+  --shadow-md: 0 2px 8px rgba(31, 41, 55, 0.06), 0 1px 2px rgba(31, 41, 55, 0.04);
+  --shadow-lg: 0 8px 30px rgba(31, 41, 55, 0.1);
+
+  /* 布局 */
+  --sidebar-width: 260px;
+  --result-panel-width: 360px;
+
+  --font-family:
+    -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
