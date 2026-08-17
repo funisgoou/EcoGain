@@ -12,6 +12,7 @@ from openai import APIStatusError, APITimeoutError, AsyncOpenAI
 from pydantic import BaseModel
 
 from app.core.config import get_config
+from app.core.env import get_env
 from app.core.logging import get_logger
 from app.schemas.common import BizError
 
@@ -56,6 +57,10 @@ class LLMGateway:
         if self._client_cache and self._client_cache[0] == fp:
             return self._client_cache[1]  # 配置未变，复用
         api_key = os.environ.get(cfg.llm_api_key_ref, "")
+        if not api_key:
+            # pydantic-settings 把 .env 读进 EnvSettings 但不写 os.environ，
+            # 本地裸跑（未 export 环境变量）时从这里兜底
+            api_key = get_env().llm_api_key
         if not api_key:
             log.warning("llm_api_key_missing", env_name=cfg.llm_api_key_ref)
         client = AsyncOpenAI(base_url=cfg.llm_base_url, api_key=api_key or "unset")
