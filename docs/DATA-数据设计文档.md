@@ -584,9 +584,9 @@ class AnalysisState(TypedDict):
 
 | config_key | 组 | 类型 | 默认值 | 校验规则 |
 | --- | --- | --- | --- | --- |
-| llm.provider | llm | string | zhipu | 非空 |
-| llm.base_url | llm | string | https://open.bigmodel.cn/api/paas/v4 | 非空 + URL 格式 |
-| llm.model | llm | string | glm-4.6 | 非空 |
+| llm.provider | llm | string | tokenrhythm | 非空 |
+| llm.base_url | llm | string | https://tokenrhythm.studio/v1 | 非空 + URL 格式 |
+| llm.model | llm | string | deepseek-v4-flash-0731 | 非空 |
 | llm.api_key_ref | llm | string | LLM_API_KEY | 环境变量引用名，非空 |
 | llm.temperature | llm | float | 0.2 | 0 ~ 1 |
 | agent.max_tool_rounds | agent | int | 15 | 5 ~ 50 |

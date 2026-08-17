@@ -6,7 +6,7 @@
 
 ## 0. 环境拉起（首次约 5~10 分钟）
 
-- [ ] 0.1 根目录复制 `.env.example` 为 `.env`，填入 `LLM_API_KEY`（智谱开放平台 key；不填则所有分析任务报 50001）
+- [ ] 0.1 根目录复制 `.env.example` 为 `.env`，填入 `LLM_API_KEY`（tokenrhythm 的 sk_tr_ 开头 key；不填则所有分析任务报 50001）。base_url/model 已按 tokenrhythm 预置进配置种子（deepseek-v4-flash-0731），建库后自动生效，无需改库
 - [ ] 0.2 `docker compose up -d --build`
   - MySQL 首启自动执行 `docker/mysql/init/01-init-databases.sql`（建 ecogain + ecogain_auth 两库）
   - backend 容器入口自动依次执行：等 MySQL 就绪 → `alembic upgrade head`（0001 建 10 表 + 0002 灌 14 项配置）→ DuckDB 灌数（约 2 分钟）→ 起 uvicorn

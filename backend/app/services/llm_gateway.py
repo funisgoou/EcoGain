@@ -67,32 +67,38 @@ class LLMGateway:
 
     async def structured_output(self, messages: list[dict], schema: type[BaseModel],
                                 instruction: str) -> BaseModel:
-        """结构化输出：函数调用式 JSON 生成 + Pydantic 解析（output.py 用）。
+        """结构化输出：JSON 生成 + Pydantic 解析（output.py 用）。
 
-        直接让模型输出 JSON 文本再解析（兼容任意 OpenAI 协议供应商，
-        不依赖 response_format json_schema 的供应商级差异）。
+        优先 response_format=json_object（OpenAI 标准模式）；供应商网关不支持时
+        自动降级为裸文本 + _extract_json 解析（容忍 markdown 代码块包裹）。
         """
         cfg = get_config()
-        from openai import APIStatusError, APITimeoutError as _T  # 复用异常类型
-
         payload = messages + [{"role": "system", "content": instruction}]
-        raw = ""
         last_err: Exception | None = None
-        for attempt, backoff in enumerate((0, 1, 4), 1):
+        use_json_mode = True  # 首轮带 json_object，失败后降级
+        for attempt in range(1, 5):
+            backoff = (0, 1, 1, 4)[attempt - 1]
             if backoff:
                 await asyncio.sleep(backoff)
             try:
+                kwargs: dict[str, Any] = {"response_format": {"type": "json_object"}} \
+                    if use_json_mode else {}
                 resp = await self.get_client().chat.completions.create(
                     model=cfg.llm_model,
                     messages=payload,
                     temperature=0.1,
                     stream=False,
-                    response_format={"type": "json_object"},
+                    **kwargs,
                 )
                 raw = resp.choices[0].message.content or ""
                 return schema.model_validate_json(_extract_json(raw))
             except (APITimeoutError, APIStatusError) as e:
                 last_err = e
+                # 4xx 且发生在 json_object 模式下 → 大概率网关不支持，降级重试
+                if use_json_mode and isinstance(e, APIStatusError) and 400 <= e.status_code < 500:
+                    log.warning("llm_json_mode_unsupported_fallback", status=e.status_code)
+                    use_json_mode = False
+                    continue
                 log.warning("llm_structured_retry", attempt=attempt, error=str(e))
             except ValueError as e:  # JSON 解析/校验失败
                 last_err = e
