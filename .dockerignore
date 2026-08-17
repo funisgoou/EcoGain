@@ -1,0 +1,20 @@
+# 统一构建上下文排除项（backend/auth-server/frontend 三个镜像共用仓库根 context）
+# 密钥与本地环境文件绝不能进镜像层
+.env
+**/.env
+
+# 本机依赖与构建产物（Windows 的 node_modules 原生二进制与 Linux 镜像不兼容，必须排除）
+**/node_modules
+frontend/dist
+
+# 本地数据目录（DuckDB/上传件走运行时 volume /data，不进镜像）
+backend/data
+auth-server/data
+data
+
+# 版本库与文档（增大 context 传输，镜像内用不到）
+.git
+docs
+designs
+**/__pycache__
+**/*.pyc
