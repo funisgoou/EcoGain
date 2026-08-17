@@ -22,7 +22,9 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 # OAuth state 暂存（60s TTL，单实例内存）
 PENDING_STATES: dict[str, datetime] = {}
-STATE_TTL = timedelta(seconds=60)
+# state 有效期 5 分钟：CSRF 防护仍足够短，同时容纳用户手输账密的时间
+# （原 60s 曾导致停留在登录页超时的用户回调被拒 40101）
+STATE_TTL = timedelta(minutes=5)
 
 
 def _frontend(path: str) -> str:
