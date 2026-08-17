@@ -156,7 +156,8 @@ async def authorize_submit(
     ), {"c": code, "cid": client_id, "uid": row.id, "r": redirect_uri,
         "e": datetime.now() + timedelta(seconds=300)})
     sep = "&" if "?" in redirect_uri else "?"
-    return RedirectResponse(f"{redirect_uri}{sep}code={code}&state={state}")
+    # 303 See Other：浏览器必须以 GET 跟随重定向（307 会保持 POST 方法打到 callback → 405）
+    return RedirectResponse(f"{redirect_uri}{sep}code={code}&state={state}", status_code=303)
 
 
 @app.post("/token")
