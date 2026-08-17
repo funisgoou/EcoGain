@@ -36,6 +36,9 @@ async def websocket_endpoint(ws: WebSocket, websocket_token: str, conversation_i
     """WS 主入口：Cookie 鉴权 + 一次性令牌 → 注册 → 收发循环（任何帧都 touch 心跳）。"""
     user = await try_get_user_from_cookie(ws)
     if user is None or not await consume_token(websocket_token, conversation_id, user.id):
+        # 必须先 accept 才能 close(code=4401)——握手期直接 close 会以 HTTP 403 拒绝，
+        # 前端拿不到约定关闭码；accept 后立即关闭，前端 onclose 可读到 4401
+        await ws.accept()
         await ws.close(code=4401)  # 令牌无效/过期/已消费
         return
     uid = user.id

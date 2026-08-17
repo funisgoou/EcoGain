@@ -11,12 +11,11 @@ from datetime import datetime, timedelta
 
 import bcrypt
 import jwt
-from fastapi import Depends, FastAPI, Form, Request
+from fastapi import Depends, FastAPI, Form, Header, Request
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
-from starlette.datastructures import FormData
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
@@ -193,7 +192,7 @@ async def token(
 
 
 @app.get("/userinfo")
-async def userinfo(authorization: str = ""):
+async def userinfo(authorization: str = Header(default="")):
     """AUTH-3：Bearer JWT 验签 → 用户信息。"""
     if not authorization.startswith("Bearer "):
         return _oauth_error(401, "invalid_token")

@@ -52,8 +52,11 @@ async def get_session() -> AsyncIterator[AsyncSession]:
             yield session
 
 
-async def new_session() -> AsyncSession:
-    """后台任务/服务层自管事务用的裸会话（不自动 begin，由调用方控制）。"""
+def new_session() -> AsyncSession:
+    """后台任务/服务层自管事务用的裸会话工厂（不自动 begin，由调用方控制）。
+
+    用法：async with new_session() as session, session.begin(): ...
+    """
     factory = get_session_factory()
     return factory()
 

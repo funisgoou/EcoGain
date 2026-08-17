@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+from sqlalchemy.dialects.mysql import DATETIME as MySQLDateTime
 from sqlalchemy import BigInteger, DateTime, Index, String, text
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -41,5 +42,5 @@ class Attachment(Base):
     )
     error_message: Mapped[str | None] = mapped_column(String(1024), nullable=True, comment="解析失败原因")
     created_at: Mapped[datetime] = mapped_column(
-        DateTime(3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
+        MySQLDateTime(fsp=3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
     )

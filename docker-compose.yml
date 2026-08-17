@@ -1,5 +1,8 @@
+# 外部数据库模式（默认）：MySQL 用 .env 里的配置（如腾讯云），仅起 auth-server + backend。
+# 本地数据库模式：docker compose --profile local-db up -d（起容器 MySQL，3306 不冲突时用）。
 services:
   mysql:
+    profiles: ["local-db"]
     image: mysql:8.0
     container_name: ecogain-mysql
     environment:
@@ -28,15 +31,15 @@ services:
       dockerfile: docker/auth-server.Dockerfile
     container_name: ecogain-auth
     environment: &backend-env
-      MYSQL_HOST: mysql
-      MYSQL_PORT: "3306"
-      MYSQL_USER: ecogain
-      MYSQL_PASSWORD: ecogain_pass
-      MYSQL_DATABASE: ecogain
-      MYSQL_AUTH_DATABASE: ecogain_auth
-      PUBLIC_BASE_URL: http://localhost:8000
-      FRONTEND_BASE_URL: http://localhost:5173
-      AUTH_BASE_URL: http://localhost:8001
+      MYSQL_HOST: ${MYSQL_HOST:-mysql}
+      MYSQL_PORT: ${MYSQL_PORT:-3306}
+      MYSQL_USER: ${MYSQL_USER:-ecogain}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ecogain_pass}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ecogain}
+      MYSQL_AUTH_DATABASE: ${MYSQL_AUTH_DATABASE:-ecogain_auth}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:8000}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-http://localhost:5173}
+      AUTH_BASE_URL: ${AUTH_BASE_URL:-http://localhost:8001}
       DATA_DIR: /data
       LLM_API_KEY: ${LLM_API_KEY:-}
       AUTH_CLIENT_SECRET: ${AUTH_CLIENT_SECRET:-ecogain-web-secret}
@@ -44,9 +47,6 @@ services:
       TZ: Asia/Shanghai
     ports:
       - "8001:8001"
-    depends_on:
-      mysql:
-        condition: service_healthy
     volumes:
       - app-data:/data
 
@@ -60,18 +60,17 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      mysql:
-        condition: service_healthy
       auth-server:
         condition: service_started
     volumes:
       - app-data:/data
-    # 入口：等 MySQL 就绪 → Alembic 迁移（幂等）→ DuckDB 灌数（幂等）→ 起服务
+    # 入口：等外部 MySQL 可达 → Alembic 迁移（幂等）→ DuckDB 灌数（幂等）→ 起服务
     command:
       - sh
       - -c
       - |
-        until python -c "import socket;s=socket.socket();s.settimeout(2);s.connect(('mysql',3306))" 2>/dev/null; do sleep 2; done
+        echo "waiting for MySQL $${MYSQL_HOST}:$${MYSQL_PORT} ..."
+        until python -c "import socket,os;s=socket.socket();s.settimeout(2);s.connect((os.environ['MYSQL_HOST'],int(os.environ['MYSQL_PORT'])))" 2>/dev/null; do sleep 2; done
         alembic upgrade head
         python -m app.seeds.init_analytics --db-path "$${DATA_DIR}/analytics/analytics.duckdb"
         uvicorn app.main:app --host 0.0.0.0 --port 8000

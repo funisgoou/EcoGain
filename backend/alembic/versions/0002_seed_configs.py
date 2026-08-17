@@ -18,9 +18,9 @@ depends_on: Union[str, Sequence[str], None] = None
 
 # (config_key, 组, 默认值, 说明) —— 与 DATA §6.5 逐行对齐
 CONFIG_SEED = [
-    ("llm.provider", "llm", "zhipu", "LLM 供应商标识"),
-    ("llm.base_url", "llm", "https://open.bigmodel.cn/api/paas/v4", "LLM OpenAI 协议网关地址"),
-    ("llm.model", "llm", "glm-4.6", "模型名"),
+    ("llm.provider", "llm", "tokenrhythm", "LLM 供应商标识"),
+    ("llm.base_url", "llm", "https://tokenrhythm.studio/v1", "LLM OpenAI 协议网关地址"),
+    ("llm.model", "llm", "deepseek-v4-flash-0731", "模型名"),
     ("llm.api_key_ref", "llm", "LLM_API_KEY", "密钥环境变量引用名（不明文存 key）"),
     ("llm.temperature", "llm", "0.2", "采样温度 0~1"),
     ("agent.max_tool_rounds", "agent", "15", "工具轮次上限 5~50"),

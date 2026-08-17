@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+from sqlalchemy.dialects.mysql import DATETIME as MySQLDateTime
 from sqlalchemy import BigInteger, DateTime, Index, Integer, String, text
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -31,12 +32,12 @@ class Conversation(Base):
         server_default=text("0"),
         comment="消息序号分配计数器（实现扩展，PRD 附录 B 之外补充）",
     )
-    last_message_at: Mapped[datetime | None] = mapped_column(DateTime(3), nullable=True)
+    last_message_at: Mapped[datetime | None] = mapped_column(MySQLDateTime(fsp=3), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime(3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
+        MySQLDateTime(fsp=3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
     )
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime(3),
+        MySQLDateTime(fsp=3),
         nullable=False,
         server_default=text("CURRENT_TIMESTAMP(3)"),
         server_onupdate=text("CURRENT_TIMESTAMP(3)"),

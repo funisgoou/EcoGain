@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+from sqlalchemy.dialects.mysql import DATETIME as MySQLDateTime
 from sqlalchemy import BigInteger, DateTime, Index, String, Text, text
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -43,9 +44,9 @@ class AnalysisTask(Base):
     trace_id: Mapped[str | None] = mapped_column(
         String(32), nullable=True, comment="链路追踪（实现扩展，日志关联）"
     )
-    started_at: Mapped[datetime | None] = mapped_column(DateTime(3), nullable=True)
-    finished_at: Mapped[datetime | None] = mapped_column(DateTime(3), nullable=True)
+    started_at: Mapped[datetime | None] = mapped_column(MySQLDateTime(fsp=3), nullable=True)
+    finished_at: Mapped[datetime | None] = mapped_column(MySQLDateTime(fsp=3), nullable=True)
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime(3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
+        MySQLDateTime(fsp=3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
     )

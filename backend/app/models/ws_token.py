@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+from sqlalchemy.dialects.mysql import DATETIME as MySQLDateTime
 from sqlalchemy import BigInteger, DateTime, Index, String, UniqueConstraint, text
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -22,10 +23,10 @@ class WsToken(Base):
     user_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
     conversation_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
     token: Mapped[str] = mapped_column(String(128), nullable=False)
-    expires_at: Mapped[datetime] = mapped_column(DateTime(3), nullable=False, comment="签发后 60 秒")
+    expires_at: Mapped[datetime] = mapped_column(MySQLDateTime(fsp=3), nullable=False, comment="签发后 60 秒")
     consumed_at: Mapped[datetime | None] = mapped_column(
-        DateTime(3), nullable=True, comment="一次性消费标记（建连成功即写）"
+        MySQLDateTime(fsp=3), nullable=True, comment="一次性消费标记（建连成功即写）"
     )
     created_at: Mapped[datetime] = mapped_column(
-        DateTime(3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
+        MySQLDateTime(fsp=3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
     )

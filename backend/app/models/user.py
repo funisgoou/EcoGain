@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+from sqlalchemy.dialects.mysql import DATETIME as MySQLDateTime
 from sqlalchemy import BigInteger, DateTime, Index, String, UniqueConstraint, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Mapped, mapped_column
@@ -34,10 +35,10 @@ class User(Base):
         String(16), nullable=False, server_default=text("'active'"), comment="active | disabled"
     )
     created_at: Mapped[datetime] = mapped_column(
-        DateTime(3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
+        MySQLDateTime(fsp=3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
     )
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime(3),
+        MySQLDateTime(fsp=3),
         nullable=False,
         server_default=text("CURRENT_TIMESTAMP(3)"),
         server_onupdate=text("CURRENT_TIMESTAMP(3)"),

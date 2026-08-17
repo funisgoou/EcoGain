@@ -37,6 +37,24 @@ DEFAULTS: dict[str, tuple[str, str, Any]] = {
     "feature.export_enabled": ("feature", "bool", True),
 }
 
+# config_key → AppConfig 字段名（显式映射，llm 组字段带 llm_ 前缀、其余组去前缀）
+_KEY_TO_FIELD: dict[str, str] = {
+    "llm.provider": "llm_provider",
+    "llm.base_url": "llm_base_url",
+    "llm.model": "llm_model",
+    "llm.api_key_ref": "llm_api_key_ref",
+    "llm.temperature": "llm_temperature",
+    "agent.max_tool_rounds": "max_tool_rounds",
+    "agent.task_timeout_seconds": "task_timeout_seconds",
+    "agent.context_rounds": "context_rounds",
+    "agent.context_token_budget": "context_token_budget",
+    "agent.sql_row_limit": "sql_row_limit",
+    "agent.sql_timeout_seconds": "sql_timeout_seconds",
+    "datasource.duckdb_path": "duckdb_path",
+    "feature.attachment_enabled": "attachment_enabled",
+    "feature.export_enabled": "export_enabled",
+}
+
 _URL_RE = re.compile(r"^https?://")
 
 
@@ -94,9 +112,8 @@ class AppConfig:
     @classmethod
     def from_rows(cls, rows: list[tuple[str, str | None]]) -> "AppConfig":
         """system_configs 查询行 → AppConfig；未知 key 忽略，缺行用默认值。"""
+        field_of_key = {k: v for k, v in _KEY_TO_FIELD.items()}
         type_map = {k: v[1] for k, v in DEFAULTS.items()}
-        attr_of = {k: k.split(".", 1)[1].replace(".", "_") for k in DEFAULTS}
-        known = {attr_of[k]: k for k in DEFAULTS}
         kwargs: dict[str, Any] = {}
         for key, value in rows:
             if key not in type_map or value is None:
@@ -112,12 +129,11 @@ class AppConfig:
                     parsed = str(value).strip().lower() in ("1", "true", "yes", "on")
                 else:
                     parsed = str(value).strip()
-                kwargs[attr_of[key]] = parsed
+                kwargs[field_of_key[key]] = parsed
             except (TypeError, ValueError):
                 # 单项类型不符不炸整次加载，交给 validate() 汇总报告
                 continue
-        cfg = cls(**{k: v for k, v in kwargs.items() if k in known})
-        return cfg
+        return cls(**{k: v for k, v in kwargs.items() if k in field_of_key.values()})
 
 
 # ---- 进程级单例 ----

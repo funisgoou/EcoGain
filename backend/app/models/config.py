@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+from sqlalchemy.dialects.mysql import DATETIME as MySQLDateTime
 from sqlalchemy import BigInteger, DateTime, Index, String, Text, UniqueConstraint, text
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -28,7 +29,7 @@ class SystemConfigModel(Base):
     )
     description: Mapped[str | None] = mapped_column(String(255), nullable=True)
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime(3),
+        MySQLDateTime(fsp=3),
         nullable=False,
         server_default=text("CURRENT_TIMESTAMP(3)"),
         server_onupdate=text("CURRENT_TIMESTAMP(3)"),

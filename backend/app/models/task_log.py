@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+from sqlalchemy.dialects.mysql import DATETIME as MySQLDateTime
 from sqlalchemy import BigInteger, DateTime, Index, String, Text, text
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -27,5 +28,5 @@ class TaskLog(Base):
     )
     log_content: Mapped[str] = mapped_column(Text, nullable=False, comment="≤2000 字，含结构化摘要")
     created_at: Mapped[datetime] = mapped_column(
-        DateTime(3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
+        MySQLDateTime(fsp=3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
     )

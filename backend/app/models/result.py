@@ -3,7 +3,7 @@
 from datetime import datetime
 
 from sqlalchemy import BigInteger, DateTime, Index, String, Text, UniqueConstraint, text
-from sqlalchemy.dialects.mysql import JSON, MEDIUMTEXT
+from sqlalchemy.dialects.mysql import DATETIME as MySQLDateTime, JSON, MEDIUMTEXT
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.mysql import Base
@@ -35,5 +35,5 @@ class AnalysisResult(Base):
         String(512), nullable=True, comment="exports 相对路径；未导出为 NULL"
     )
     created_at: Mapped[datetime] = mapped_column(
-        DateTime(3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
+        MySQLDateTime(fsp=3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3)")
     )
