@@ -6,6 +6,7 @@ reload_config 先全量校验后原子替换，失败旧配置继续生效。
 """
 from __future__ import annotations
 
+import os
 import re
 from dataclasses import dataclass, field, fields
 from typing import Any
@@ -125,8 +126,10 @@ _config: AppConfig | None = None
 
 def get_config() -> AppConfig:
     if _config is None:
-        # 单测/未初始化场景兜底：默认值
-        return AppConfig(duckdb_path=str(get_env().data_dir) + "/analytics/analytics.duckdb")
+        # 单测/未初始化场景兜底：默认值（DUCKDB_PATH 覆盖 > DATA_DIR 推导）
+        env_duck = os.environ.get("DUCKDB_PATH", "").strip()
+        duck = env_duck or f"{get_env().data_dir}/analytics/analytics.duckdb"
+        return AppConfig(duckdb_path=duck)
     return _config
 
 
@@ -140,8 +143,12 @@ async def load_configs(engine: AsyncEngine) -> AppConfig:
     async with AsyncSession(engine, expire_on_commit=False) as session:
         rows = (await session.execute(text("SELECT config_key, config_value FROM system_configs"))).all()
     cfg = AppConfig.from_rows(list(rows))
-    # 本地开发兜底：容器外运行时 duckdb_path 默认值指向 /data 不存在，改用 DATA_DIR
-    if not cfg.duckdb_path or cfg.duckdb_path == DEFAULTS["datasource.duckdb_path"][2]:
+    # 解析优先级：DUCKDB_PATH 环境变量 > system_configs 值 > DATA_DIR 兜底
+    # （DB 默认值 /data/... 为容器内路径，本地裸跑时不存在，改用 DATA_DIR）
+    env_duck = os.environ.get("DUCKDB_PATH", "").strip()
+    if env_duck:
+        cfg.duckdb_path = env_duck
+    elif not cfg.duckdb_path or cfg.duckdb_path == DEFAULTS["datasource.duckdb_path"][2]:
         cfg.duckdb_path = f"{get_env().data_dir}/analytics/analytics.duckdb"
     errs = cfg.validate()
     if errs:

@@ -29,6 +29,9 @@ class EnvSettings(BaseSettings):
 
     # 数据卷根目录（uploads/ exports/ workspace/ analytics/ 均在其下）
     data_dir: str = "./data"
+    # DuckDB 库文件路径覆盖（可选；未设置时走 system_configs 的 datasource.duckdb_path，
+    # 其默认 /data/analytics/analytics.duckdb 为容器内路径，本地裸跑自动兜底 DATA_DIR 下）
+    duckdb_path: str | None = None
 
     # 密钥（只走环境变量；system_configs 存引用名 llm.api_key_ref）
     llm_api_key: str = ""
