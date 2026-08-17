@@ -32,7 +32,8 @@ def _openai_to_lc(msg_dict: dict) -> AIMessage:
          "args": _parse_args(tc["function"]["arguments"])}
         for tc in (m.get("tool_calls") or [])
     ]
-    return AIMessage(content=m.get("content") or "", tool_calls=tool_calls or None)
+    # tool_calls 必须传 list（空列表合法）；传 None 会触发 AIMessage 校验错误
+    return AIMessage(content=m.get("content") or "", tool_calls=tool_calls)
 
 
 def _parse_args(raw: Any) -> dict:
