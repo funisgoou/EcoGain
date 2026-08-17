@@ -4,7 +4,6 @@ FROM python:3.12-slim
 ARG PIP_INDEX_URL=https://mirrors.cloud.tencent.com/pypi/simple
 
 ENV PIP_INDEX_URL=${PIP_INDEX_URL} \
-    UV_DEFAULT_INDEX=${PIP_INDEX_URL} \
     PIP_ROOT_USER_ACTION=ignore \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_DEFAULT_TIMEOUT=300
@@ -18,10 +17,10 @@ RUN pip install --no-cache-dir uv==0.11.17
 COPY pyproject.toml uv.lock ./
 COPY backend/pyproject.toml backend/pyproject.toml
 COPY auth-server/pyproject.toml auth-server/pyproject.toml
-# 不用 --frozen：它会绕过镜像配置、按 uv.lock 里固化的 pypi.org URL 下载；
-# --locked 同样校验锁文件一致性，且尊重 UV_DEFAULT_INDEX 走镜像
+# uv.lock 已按腾讯镜像生成（URL 固化为 mirrors.cloud.tencent.com），
+# --frozen 跳过重新解析与索引校验、直接按锁文件安装，构建结果确定
 RUN --mount=type=cache,target=/root/.cache/uv,sharing=locked \
-    uv sync --locked --no-dev
+    uv sync --frozen --no-dev
 
 COPY backend backend
 COPY auth-server auth-server
